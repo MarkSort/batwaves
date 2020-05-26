@@ -7,16 +7,31 @@ onready var ysort = $YSort
 onready var player = $YSort/Player
 onready var spawners = $Spawners.get_children()
 
-var timeSinceLastBatSpawn = 0
-var nextSpawner = 0
-var spawnDelay = 1.5
+onready var waveTimer = $WaveTimer
+onready var spawnTimer = $SpawnTimer
 
-func _process(delta):
-	timeSinceLastBatSpawn += delta
+var nextSpawner
+var wave
+var batsSpawned
+var batsKilled
 
-	if is_instance_valid(player) && timeSinceLastBatSpawn > spawnDelay:
-		timeSinceLastBatSpawn -= spawnDelay
+func _ready():
+	restartGame()
 
+func restartGame():
+	wave = 1
+	nextSpawner = 0
+	waveTimer.start()
+
+func _on_WaveTimer_timeout():
+	print("_on_WaveTimer_timeout")
+	batsSpawned = 0
+	batsKilled = 0
+	spawnBat()
+
+func spawnBat():
+	if is_instance_valid(player):
+		print("spawnBat")
 		var newBat = bat.instance()
 		ysort.add_child(newBat)
 		newBat.global_position = spawners[nextSpawner].global_position
@@ -26,6 +41,12 @@ func _process(delta):
 		if nextSpawner >= spawners.size():
 			nextSpawner = 0
 
-		if spawnDelay > minSpawnDelay:
-			spawnDelay = spawnDelay * .99
-			print("spawnDelay ", spawnDelay)
+		batsSpawned += 1
+		if batsSpawned < wave * 5:
+			print("spawnTimer.start()")
+			spawnTimer.start(1 - (wave - 1) * .1)
+
+
+func _on_SpawnTimer_timeout():
+	print("_on_SpawnTimer_timeout")
+	spawnBat()

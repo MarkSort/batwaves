@@ -543,4 +543,13 @@ position = Vector2( 400.209, 83.193 )
 [node name="Position2D4" type="Position2D" parent="Spawners"]
 position = Vector2( 177.1, 211.134 )
 
+[node name="WaveTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+
 [editable path="Camera2D"]
