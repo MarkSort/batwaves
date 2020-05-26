@@ -1,6 +1,5 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=56 format=2]
 
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World/GrassBackground.png" type="Texture" id=3]
 [ext_resource path="res://World/DirtTileset.png" type="Texture" id=4]
 [ext_resource path="res://World/CliffTileset.png" type="Texture" id=5]
@@ -505,7 +504,7 @@ format = 1
 tile_data = PoolIntArray( -196604, 0, 4, -196603, 0, 196609, -196602, 0, 7, -131068, 0, 65539, -131066, 0, 65539, -1, 0, 4, -65536, 0, 196609, -65535, 0, 196609, -65534, 0, 196609, -65533, 0, 196609, -65532, 0, 196615, -65530, 0, 196612, -65529, 0, 196609, -65528, 0, 196609, -65527, 0, 196609, -65526, 0, 196609, -65525, 0, 7, 65535, 0, 65539, 11, 0, 65539, 131069, 0, 4, 131070, 0, 196609, 131071, 0, 196615, 65547, 0, 196612, 65548, 0, 196609, 65549, 0, 7, 196605, 0, 65539, 131085, 0, 65539, 262141, 0, 196612, 262142, 0, 196609, 262143, 0, 7, 196619, 0, 4, 196620, 0, 196609, 196621, 0, 196615, 327679, 0, 65539, 262155, 0, 65539, 393215, 0, 196612, 327680, 0, 196609, 327681, 0, 196609, 327682, 0, 196609, 327683, 0, 196609, 327684, 0, 7, 327686, 0, 4, 327687, 0, 196609, 327688, 0, 196609, 327689, 0, 196609, 327690, 0, 196609, 327691, 0, 196615, 393220, 0, 65539, 393222, 0, 65539, 458756, 0, 196612, 458757, 0, 196609, 458758, 0, 196615 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 10 )]
-position = Vector2( 168, 80 )
+position = Vector2( 175, 75 )
 
 [node name="TopLeft" parent="Camera2D/Limits" index="0"]
 position = Vector2( -32, -32 )
@@ -514,12 +513,6 @@ position = Vector2( -32, -32 )
 position = Vector2( 384, 192 )
 
 [node name="YSort" type="YSort" parent="."]
-
-[node name="Player" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 168, 80 )
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="YSort/Player"]
-remote_path = NodePath("../../../Camera2D")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -1,28 +1,47 @@
 extends Node2D
 
-const bat = preload("res://Enemies/Bat.tscn")
+const Bat = preload("res://Enemies/Bat.tscn")
+const Player = preload("res://Player/Player.tscn")
 const minSpawnDelay = .1
 
 onready var ysort = $YSort
-onready var player = $YSort/Player
 onready var spawners = $Spawners.get_children()
+onready var camera = $Camera2D
 
 onready var waveTimer = $WaveTimer
 onready var spawnTimer = $SpawnTimer
 
+var player
 var nextSpawner
 var wave
 var batsSpawned
 var batsKilled
 
-func _ready():
-	restartGame()
+func _process(_delta):
+	if Input.is_action_just_pressed("attack"):
+		restartGame()
 
 func restartGame():
-	wave = 1
-	nextSpawner = 0
-	waveTimer.start()
-	print("Wave 1")
+	if !is_instance_valid(player) && spawnTimer.is_stopped():
+		wave = 1
+		nextSpawner = 0
+
+		for bat in ysort.get_children():
+			ysort.remove_child(bat)
+			bat.free()
+
+		var remoteTransform2D = RemoteTransform2D.new()
+		remoteTransform2D.remote_path = camera.get_path()
+
+		player = Player.instance()
+		player.global_position = Vector2(175, 75)
+		player.add_child(remoteTransform2D)
+		ysort.add_child(player)
+
+		PlayerStats.set_health(PlayerStats.max_health)
+
+		waveTimer.start()
+		print("Wave 1")
 
 func _on_WaveTimer_timeout():
 	batsSpawned = 0
@@ -31,7 +50,7 @@ func _on_WaveTimer_timeout():
 
 func spawnBat():
 	if is_instance_valid(player):
-		var newBat = bat.instance()
+		var newBat = Bat.instance()
 		newBat.global_position = spawners[nextSpawner].global_position
 		newBat.player = player
 		newBat.connect("killed", self, "_bat_killed")
