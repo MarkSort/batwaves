@@ -24,14 +24,12 @@ func restartGame():
 	waveTimer.start()
 
 func _on_WaveTimer_timeout():
-	print("_on_WaveTimer_timeout")
 	batsSpawned = 0
 	batsKilled = 0
 	spawnBat()
 
 func spawnBat():
 	if is_instance_valid(player):
-		print("spawnBat")
 		var newBat = bat.instance()
 		ysort.add_child(newBat)
 		newBat.global_position = spawners[nextSpawner].global_position
@@ -43,10 +41,8 @@ func spawnBat():
 
 		batsSpawned += 1
 		if batsSpawned < wave * 5:
-			print("spawnTimer.start()")
 			spawnTimer.start(1 - (wave - 1) * .1)
 
 
 func _on_SpawnTimer_timeout():
-	print("_on_SpawnTimer_timeout")
 	spawnBat()
