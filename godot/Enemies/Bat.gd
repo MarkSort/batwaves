@@ -17,6 +17,8 @@ onready var animationPlayer = $AnimationPlayer
 
 var player
 
+signal killed
+
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, FRICTION * delta)
 	knockback = move_and_slide(knockback)
@@ -46,6 +48,7 @@ func _on_Stats_no_health():
 	var enemyDeathEffect = EnemyDeathEffect.instance()
 	get_parent().add_child(enemyDeathEffect)
 	enemyDeathEffect.global_position = global_position
+	emit_signal("killed")
 
 func _on_Hurtbox_invincibility_started():
 	animationPlayer.play("Start")
