@@ -13,7 +13,7 @@ var nextSpawner = 0
 func _process(delta):
 	timeSinceLastBatSpawn += delta
 
-	if timeSinceLastBatSpawn > spawnDelay:
+	if is_instance_valid(player) && timeSinceLastBatSpawn > spawnDelay:
 		timeSinceLastBatSpawn -= spawnDelay
 
 		var newBat = bat.instance()
