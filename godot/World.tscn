@@ -1,10 +1,10 @@
 [gd_scene load_steps=57 format=2]
 
-[ext_resource path="res://YSort.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World/GrassBackground.png" type="Texture" id=3]
 [ext_resource path="res://World/DirtTileset.png" type="Texture" id=4]
 [ext_resource path="res://World/CliffTileset.png" type="Texture" id=5]
+[ext_resource path="res://World.gd" type="Script" id=6]
 [ext_resource path="res://UI/HealthUI.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Camera2D.tscn" type="PackedScene" id=10]
 
@@ -483,6 +483,7 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 0/z_index = 0
 
 [node name="World" type="Node2D"]
+script = ExtResource( 6 )
 
 [node name="Background" type="Sprite" parent="."]
 position = Vector2( 160, 90 )
@@ -513,7 +514,6 @@ position = Vector2( -32, -32 )
 position = Vector2( 384, 192 )
 
 [node name="YSort" type="YSort" parent="."]
-script = ExtResource( 1 )
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 168, 80 )
@@ -528,5 +528,19 @@ margin_left = 3.0
 margin_top = 3.0
 margin_right = 63.0
 margin_bottom = 14.0
+
+[node name="Spawners" type="Node" parent="."]
+
+[node name="Position2D" type="Position2D" parent="Spawners"]
+position = Vector2( -51.6805, 86.3443 )
+
+[node name="Position2D2" type="Position2D" parent="Spawners"]
+position = Vector2( 177.1, -42.857 )
+
+[node name="Position2D3" type="Position2D" parent="Spawners"]
+position = Vector2( 400.209, 83.193 )
+
+[node name="Position2D4" type="Position2D" parent="Spawners"]
+position = Vector2( 177.1, 211.134 )
 
 [editable path="Camera2D"]
