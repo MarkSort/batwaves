@@ -6,6 +6,7 @@ var previousNode
 const World = preload("World.tscn")
 const TitleScreen = preload("UI/TitleScreen.tscn")
 const Server = preload("res://Networking/Server.gd")
+const Client = preload("res://Networking/Client.gd")
 
 func _ready():
 	var buildType = OS.get_name()
@@ -21,7 +22,9 @@ func hostAndJoinGame():
 	currentNode.add_child(Server.new())
 
 func joinGame():
-	pass
+	addWorldNode()
+	currentNode.server = false
+	currentNode.add_child(Client.new())
 
 func hostGame():
 	addWorldNode()

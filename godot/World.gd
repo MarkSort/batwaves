@@ -11,6 +11,8 @@ onready var camera = $Camera2D
 onready var waveTimer = $WaveTimer
 onready var spawnTimer = $SpawnTimer
 
+var server = true
+
 var player
 var nextSpawner
 var wave
@@ -22,7 +24,7 @@ func _process(_delta):
 		restartGame()
 
 func restartGame():
-	if !is_instance_valid(player) && spawnTimer.is_stopped():
+	if server && !is_instance_valid(player) && spawnTimer.is_stopped():
 		wave = 1
 		nextSpawner = 0
 
@@ -74,3 +76,12 @@ func _bat_killed():
 		print("Wave %d" % [wave])
 		waveTimer.start()
 
+func addPlayer(_id):
+	if server:
+		return
+
+	var newPlayer = Player.instance()
+	newPlayer.server = false
+	ysort.add_child(newPlayer)
+
+	return newPlayer
