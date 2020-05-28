@@ -30,17 +30,17 @@ func _process(_delta):
 
 	if dataChannel && dataChannel.get_available_packet_count():
 		var update: PoolByteArray = dataChannel.get_packet()
-		var updatex = StreamPeerBuffer.new()
-		updatex.set_data_array(update)
 		var playerCount = (updatex.get_size() - 4) / 12
-		var updateCount = updatex.get_u32()
+		var updateBuffer = StreamPeerBuffer.new()
+		updateBuffer.set_data_array(update)
 
+		var updateCount = updateBuffer.get_u32()
 		var i = 0
 		while i < playerCount:
 			i += 1
-			var id = updatex.get_u32()
-			var playerX = updatex.get_float()
-			var playerY = updatex.get_float()
+			var id = updateBuffer.get_u32()
+			var playerX = updateBuffer.get_float()
+			var playerY = updateBuffer.get_float()
 
 			if !players.has(id):
 				players[id] = get_parent().addPlayer(id)
