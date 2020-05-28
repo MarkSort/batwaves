@@ -12,6 +12,7 @@ onready var waveTimer = $WaveTimer
 onready var spawnTimer = $SpawnTimer
 
 var server = true
+var firstTick = true
 
 var player
 var nextSpawner
@@ -22,9 +23,11 @@ var batsKilled
 func _process(_delta):
 	if Input.is_action_just_pressed("attack"):
 		restartGame()
+	if firstTick:
+		firstTick = false
 
 func restartGame():
-	if server && !is_instance_valid(player) && spawnTimer.is_stopped():
+	if server && !is_instance_valid(player) && spawnTimer.is_stopped() && !firstTick:
 		wave = 1
 		nextSpawner = 0
 
