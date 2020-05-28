@@ -40,20 +40,20 @@ func _process(_delta):
 
 		lastUpdateCount = updateCount
 
-		var playerCount = (updateBuffer.get_size() - 4) / 12
+		var playerCount = (updateBuffer.get_size() - 4) / 21
 		var i = 0
 		while i < playerCount:
 			i += 1
 			var id = updateBuffer.get_u32()
-			var playerX = updateBuffer.get_float()
-			var playerY = updateBuffer.get_float()
 
 			if !players.has(id):
-				players[id] = get_parent().addPlayer(id)
-				players[id].setClientMode()
+				players[id] = get_parent().addClientPlayer(id)
 
-			players[id].position.x = playerX
-			players[id].position.y = playerY
+			players[id].state = updateBuffer.get_u8()
+			players[id].position.x = updateBuffer.get_float()
+			players[id].position.y = updateBuffer.get_float()
+			players[id].velocity.x = updateBuffer.get_float()
+			players[id].velocity.y = updateBuffer.get_float()
 
 
 #WebSocket

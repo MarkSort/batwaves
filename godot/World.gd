@@ -79,12 +79,12 @@ func _bat_killed():
 		print("Wave %d" % [wave])
 		waveTimer.start()
 
-func addPlayer(_id):
+func addClientPlayer(_id):
 	if server:
 		return
 
 	var newPlayer = Player.instance()
-	newPlayer.server = false
+	newPlayer.client = true
 	ysort.add_child(newPlayer)
 
 	return newPlayer

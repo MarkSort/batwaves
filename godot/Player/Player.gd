@@ -33,9 +33,11 @@ func _ready():
 	animationTree.active = true
 	swordHitbox.knockback_vector = roll_vector
 
-func _physics_process(delta):
 	if client:
-		return
+		swordHitbox.setClientMode()
+		hurtbox.setClientMode()
+
+func _physics_process(delta):
 
 	match state:
 		MOVE:
@@ -49,8 +51,11 @@ func _physics_process(delta):
 
 func move_state(delta):
 	var input_vector = Vector2.ZERO
-	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	if client:
+		input_vector = velocity
+	else:
+		input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+		input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	input_vector = input_vector.normalized()
 
 	if input_vector != Vector2.ZERO:
@@ -68,10 +73,10 @@ func move_state(delta):
 
 	move()
 
-	if Input.is_action_just_pressed("roll"):
+	if Input.is_action_just_pressed("roll") && !client:
 		state = ROLL
 
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") && !client:
 		state = ATTACK
 
 func roll_state():
@@ -108,8 +113,3 @@ func _on_Hurtbox_invincibility_started():
 
 func _on_Hurtbox_invincibility_ended():
 	blinkAnimationPlayer.play("Stop")
-
-func setClientMode():
-	client = true
-	swordHitbox.setClientMode()
-	hurtbox.setClientMode()

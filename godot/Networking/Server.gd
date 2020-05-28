@@ -30,16 +30,22 @@ func _process(delta):
 		updateCount += 1
 
 		updateBuffer = StreamPeerBuffer.new()
-		updateBuffer.resize(12 + 4)
+		updateBuffer.resize(21 + 4)
 		updateBuffer.put_u32(updateCount)
 
 		updateBuffer.put_u32(1)
 
 		var player = get_parent().player
 		if is_instance_valid(player):
+			updateBuffer.put_u8(player.state)
 			updateBuffer.put_float(player.position.x)
 			updateBuffer.put_float(player.position.y)
+			updateBuffer.put_float(player.velocity.x)
+			updateBuffer.put_float(player.velocity.y)
 		else:
+			updateBuffer.put_u8(0)
+			updateBuffer.put_float(0)
+			updateBuffer.put_float(0)
 			updateBuffer.put_float(0)
 			updateBuffer.put_float(0)
 
