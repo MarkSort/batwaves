@@ -48,8 +48,6 @@ func _process(_delta):
 			players[id].position.x = playerX
 			players[id].position.y = playerY
 
-		dataChannel.put_packet(("ack %d" % [updateCount]).to_utf8())
-
 
 #WebSocket
 func _data_received():
