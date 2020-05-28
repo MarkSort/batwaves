@@ -94,5 +94,7 @@ func _ice_candidate_created(id, media, index, name):
 	var candidate = "%s\n%d\n%s" % [media, index, name]
 	server.get_peer(id).put_packet(candidate.to_utf8())
 
+
+#util
 func clientLogInfo(id, message):
 	print("[WebSocketServer] [clientId=%d] %s" % [id, message])
