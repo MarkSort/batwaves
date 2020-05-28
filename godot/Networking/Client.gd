@@ -11,6 +11,7 @@ var dataChannel: WebRTCDataChannel = webRtc.create_data_channel("dc", {
 	"ordered": false
 })
 var waitingForOffer = true
+var lastUpdateCount = 0
 
 var players: Dictionary = {}
 
@@ -30,11 +31,16 @@ func _process(_delta):
 
 	if dataChannel && dataChannel.get_available_packet_count():
 		var update: PoolByteArray = dataChannel.get_packet()
-		var playerCount = (updatex.get_size() - 4) / 12
 		var updateBuffer = StreamPeerBuffer.new()
 		updateBuffer.set_data_array(update)
 
 		var updateCount = updateBuffer.get_u32()
+		if updateCount < lastUpdateCount:
+			return
+
+		lastUpdateCount = updateCount
+
+		var playerCount = (updateBuffer.get_size() - 4) / 12
 		var i = 0
 		while i < playerCount:
 			i += 1
