@@ -514,6 +514,8 @@ position = Vector2( 384, 192 )
 
 [node name="YSort" type="YSort" parent="."]
 
+[node name="Bats" type="YSort" parent="YSort"]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HealthUI" parent="CanvasLayer" instance=ExtResource( 8 )]

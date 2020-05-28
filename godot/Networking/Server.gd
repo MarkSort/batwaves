@@ -18,8 +18,7 @@ func _ready():
 
 func _process(delta):
 	var disconnectedPeers = []
-	var update: PoolByteArray
-	var updateBuffer: StreamPeerBuffer
+	var updates = []
 
 	if server.is_listening():
 		server.poll()
@@ -29,8 +28,10 @@ func _process(delta):
 		deltaSinceLastUpdate = 0
 		updateCount += 1
 
-		updateBuffer = StreamPeerBuffer.new()
-		updateBuffer.resize(21 + 4)
+		var playerCount = 1
+		var updateBuffer = StreamPeerBuffer.new()
+		updateBuffer.resize(playerCount * 21 + 4 + 1)
+		updateBuffer.put_u8(0) # update type Player
 		updateBuffer.put_u32(updateCount)
 
 		updateBuffer.put_u32(1)
@@ -49,7 +50,20 @@ func _process(delta):
 			updateBuffer.put_float(0)
 			updateBuffer.put_float(0)
 
-		update = updateBuffer.get_data_array()
+		updates.append(updateBuffer.get_data_array())
+
+		var bats = get_parent().bats.get_children()
+		updateBuffer = StreamPeerBuffer.new()
+		updateBuffer.resize(bats.size() * 9 + 4 + 1)
+		updateBuffer.put_u8(1) # update type Bat
+		updateBuffer.put_u32(updateCount)
+
+		for bat in bats:
+			updateBuffer.put_u8(bat.id)
+			updateBuffer.put_float(bat.position.x)
+			updateBuffer.put_float(bat.position.y)
+
+		updates.append(updateBuffer.get_data_array())
 
 	for i in webRtcPeers:
 		webRtcPeers[i].poll()
@@ -61,12 +75,11 @@ func _process(delta):
 			disconnectedPeers.push_back(i)
 			continue
 
-		if update:
+		for update in updates:
 			if dataChannel.get_ready_state() == WebRTCDataChannel.STATE_OPEN:
 				dataChannel.put_packet(update)
-			continue
 
-		if dataChannel.get_available_packet_count():
+		if !updates.size() && dataChannel.get_available_packet_count():
 			var packet = dataChannel.get_packet().get_string_from_utf8()
 			clientLogInfo(i, "got DataChannel packet: '%s'" % [packet])
 

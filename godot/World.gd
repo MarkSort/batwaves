@@ -5,6 +5,7 @@ const Player = preload("res://Player/Player.tscn")
 const minSpawnDelay = .2
 
 onready var ysort = $YSort
+onready var bats = $YSort/Bats
 onready var spawners = $Spawners.get_children()
 onready var camera = $Camera2D
 
@@ -31,8 +32,8 @@ func restartGame():
 		wave = 1
 		nextSpawner = 0
 
-		for bat in ysort.get_children():
-			ysort.remove_child(bat)
+		for bat in bats.get_children():
+			bats.remove_child(bat)
 			bat.free()
 
 		var remoteTransform2D = RemoteTransform2D.new()
@@ -58,8 +59,9 @@ func spawnBat():
 		var newBat = Bat.instance()
 		newBat.global_position = spawners[nextSpawner].global_position
 		newBat.player = player
+		newBat.id = batsSpawned
 		newBat.connect("killed", self, "_bat_killed")
-		ysort.add_child(newBat)
+		bats.add_child(newBat)
 
 		nextSpawner += 1
 		if nextSpawner >= spawners.size():
@@ -83,8 +85,25 @@ func addClientPlayer(_id):
 	if server:
 		return
 
-	var newPlayer = Player.instance()
-	newPlayer.client = true
-	ysort.add_child(newPlayer)
+	player = Player.instance()
+	player.client = true
+	ysort.add_child(player)
 
-	return newPlayer
+	for bat in bats.get_children():
+		bat.player = player
+
+	return player
+
+func addClientBat(id, newBat):
+	if server:
+		return
+
+	var bat = Bat.instance()
+	bat.id = id
+	bat.player = player
+	bat.position = newBat
+	bats.add_child(bat)
+
+func removeClientBat(bat):
+	bats.remove_child(bat)
+	bat.free()

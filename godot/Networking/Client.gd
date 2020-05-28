@@ -11,9 +11,11 @@ var dataChannel: WebRTCDataChannel = webRtc.create_data_channel("dc", {
 	"ordered": false
 })
 var waitingForOffer = true
-var lastUpdateCount = 0
+var lastPlayerUpdateId = 0
+var lastBatUpdateId = 0
 
 var players: Dictionary = {}
+var bats: Dictionary = {}
 
 func _init():
 	client.connect("data_received", self, "_data_received")
@@ -34,27 +36,56 @@ func _process(_delta):
 		var updateBuffer = StreamPeerBuffer.new()
 		updateBuffer.set_data_array(update)
 
-		var updateCount = updateBuffer.get_u32()
-		if updateCount < lastUpdateCount:
-			return
+		if updateBuffer.get_u8() == 0:
+			var playerUpdateId = updateBuffer.get_u32()
+			if playerUpdateId < lastPlayerUpdateId:
+				return
 
-		lastUpdateCount = updateCount
+			lastPlayerUpdateId = playerUpdateId
 
-		var playerCount = (updateBuffer.get_size() - 4) / 21
-		var i = 0
-		while i < playerCount:
-			i += 1
-			var id = updateBuffer.get_u32()
+			var playerCount = (updateBuffer.get_size() - 4 - 1) / 21
+			var i = 0
+			while i < playerCount:
+				i += 1
+				var id = updateBuffer.get_u32()
 
-			if !players.has(id):
-				players[id] = get_parent().addClientPlayer(id)
+				if !players.has(id):
+					players[id] = get_parent().addClientPlayer(id)
 
-			players[id].state = updateBuffer.get_u8()
-			players[id].position.x = updateBuffer.get_float()
-			players[id].position.y = updateBuffer.get_float()
-			players[id].velocity.x = updateBuffer.get_float()
-			players[id].velocity.y = updateBuffer.get_float()
+				players[id].state = updateBuffer.get_u8()
+				players[id].position.x = updateBuffer.get_float()
+				players[id].position.y = updateBuffer.get_float()
+				players[id].velocity.x = updateBuffer.get_float()
+				players[id].velocity.y = updateBuffer.get_float()
+		else:
+			var batUpdateId = updateBuffer.get_u32()
+			if batUpdateId < lastBatUpdateId:
+				return
 
+			lastBatUpdateId = batUpdateId
+
+			var batCount = (updateBuffer.get_size() - 4 - 1) / 9
+			var i = 0
+			var batUpdates = {}
+			while i < batCount:
+				i += 1
+				var id = updateBuffer.get_u8()
+				batUpdates[id] = Vector2(
+					updateBuffer.get_float(),
+					updateBuffer.get_float()
+				)
+
+			var newBats = batUpdates.duplicate()
+			for bat in get_parent().bats.get_children():
+				if batUpdates.has(bat.id):
+					newBats.erase(bat.id)
+					bat.position.x = batUpdates[bat.id].x
+					bat.position.y = batUpdates[bat.id].y
+				else:
+					get_parent().removeClientBat(bat)
+
+			for id in newBats:
+				get_parent().addClientBat(id, newBats[id])
 
 #WebSocket
 func _data_received():
