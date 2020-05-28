@@ -2,7 +2,7 @@ extends Node2D
 
 const Bat = preload("res://Enemies/Bat.tscn")
 const Player = preload("res://Player/Player.tscn")
-const minSpawnDelay = .1
+const minSpawnDelay = .2
 
 onready var ysort = $YSort
 onready var spawners = $Spawners.get_children()
