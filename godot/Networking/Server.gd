@@ -25,7 +25,7 @@ func _process(delta):
 		server.poll()
 
 	deltaSinceLastUpdate += delta
-	if deltaSinceLastUpdate >= .5:
+	if deltaSinceLastUpdate >= .05:
 		deltaSinceLastUpdate = 0
 		updateCount += 1
 
