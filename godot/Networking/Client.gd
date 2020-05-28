@@ -50,6 +50,7 @@ func _process(_delta):
 
 			if !players.has(id):
 				players[id] = get_parent().addPlayer(id)
+				players[id].setClientMode()
 
 			players[id].position.x = playerX
 			players[id].position.y = playerY

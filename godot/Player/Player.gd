@@ -18,7 +18,7 @@ var velocity = Vector2.ZERO
 var roll_vector = Vector2.DOWN
 var stats = PlayerStats
 
-var server = true
+var client = false
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -34,7 +34,7 @@ func _ready():
 	swordHitbox.knockback_vector = roll_vector
 
 func _physics_process(delta):
-	if !server:
+	if client:
 		return
 
 	match state:
@@ -108,3 +108,8 @@ func _on_Hurtbox_invincibility_started():
 
 func _on_Hurtbox_invincibility_ended():
 	blinkAnimationPlayer.play("Stop")
+
+func setClientMode():
+	client = true
+	swordHitbox.setClientMode()
+	hurtbox.setClientMode()

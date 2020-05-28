@@ -35,3 +35,6 @@ func _on_Hurtbox_invincibility_started():
 
 func _on_Hurtbox_invincibility_ended():
 	collisionShape.disabled = false
+
+func setClientMode():
+	collisionShape.disabled = true
