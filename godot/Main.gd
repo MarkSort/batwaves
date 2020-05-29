@@ -20,6 +20,8 @@ func _ready():
 func hostAndJoinGame():
 	addWorldNode()
 	currentNode.add_child(Server.new())
+	currentNode.playersMap[1] = null
+	currentNode.playerId = 1
 
 func joinGame():
 	addWorldNode()

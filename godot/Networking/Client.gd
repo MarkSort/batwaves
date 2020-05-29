@@ -10,12 +10,22 @@ var dataChannel: WebRTCDataChannel = webRtc.create_data_channel("dc", {
 	"maxRetransmits": 0,
 	"ordered": false
 })
-var waitingForOffer = true
 var lastPlayerUpdateId = 0
 var lastBatUpdateId = 0
 
+var deltaSinceLastInput = 0
+var inputCount = 0
+
 var players: Dictionary = {}
 var bats: Dictionary = {}
+
+enum {
+	WAITING_FOR_ID,
+	WAITING_FOR_OFFER,
+	WAITING_FOR_CANDIDATES
+}
+
+var state = WAITING_FOR_ID
 
 func _init():
 	client.connect("data_received", self, "_data_received")
@@ -27,7 +37,7 @@ func _init():
 func _ready():
 	client.connect_to_url("ws://192.168.7.144:1337")
 
-func _process(_delta):
+func _process(delta):
 	client.poll()
 	webRtc.poll()
 
@@ -87,20 +97,54 @@ func _process(_delta):
 			for id in newBats:
 				get_parent().addClientBat(id, newBats[id])
 
+	deltaSinceLastInput += delta
+	if deltaSinceLastInput > .05:
+		deltaSinceLastInput = 0
+		inputCount += 1
+
+		var inputDirection = 0
+		if Input.is_action_pressed("ui_left") && Input.is_action_pressed("ui_right"):
+			pass
+		elif Input.is_action_pressed("ui_left"):
+			inputDirection += 1
+		elif Input.is_action_pressed("ui_right"):
+			inputDirection += 2
+		if Input.is_action_pressed("ui_up") && Input.is_action_pressed("ui_down"):
+			pass
+		elif Input.is_action_pressed("ui_up"):
+			inputDirection += 3
+		elif Input.is_action_pressed("ui_down"):
+			inputDirection += 6
+
+
+		var inputBuffer = StreamPeerBuffer.new()
+		inputBuffer.resize(5)
+		inputBuffer.put_u32(inputCount)
+		inputBuffer.put_u8(inputDirection)
+
+		dataChannel.put_packet(inputBuffer.get_data_array())
+
+
 #WebSocket
 func _data_received():
-	if waitingForOffer:
-		waitingForOffer = false
-		var offer = client.get_peer(1).get_packet().get_string_from_utf8()
-		webRtc.set_remote_description("offer", offer)
-	else:
-		var packet = client.get_peer(1).get_packet().get_string_from_utf8()
-		var candidate = packet.split("\n")
-		if candidate.size() != 3:
-			print("Received bad candidate from server: %s" % [packet])
-			return
+	match state:
+		WAITING_FOR_ID:
+			get_parent().playerId = int(client.get_peer(1).get_packet().get_string_from_ascii())
+			state = WAITING_FOR_OFFER
+		WAITING_FOR_OFFER:
+			print("client.get_unique_id(): %d" % [client.get_unique_id()])
+			state = WAITING_FOR_CANDIDATES
+			var offer = client.get_peer(1).get_packet().get_string_from_utf8()
+			print("OFFER: ", offer)
+			webRtc.set_remote_description("offer", offer)
+		WAITING_FOR_CANDIDATES:
+			var packet = client.get_peer(1).get_packet().get_string_from_utf8()
+			var candidate = packet.split("\n")
+			if candidate.size() != 3:
+				print("Received bad candidate from server: %s" % [packet])
+				return
 
-		webRtc.add_ice_candidate(candidate[0], int(candidate[1]), candidate[2])
+			webRtc.add_ice_candidate(candidate[0], int(candidate[1]), candidate[2])
 
 func _connection_closed(was_clean_close):
 	if was_clean_close || webRtc.get_connection_state() == webRtc.STATE_CONNECTED:

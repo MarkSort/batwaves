@@ -2,7 +2,8 @@ extends Node
 
 const WebRTCPeer = preload("WebRTCPeer.gd")
 
-var world
+onready var worldPlayers = get_parent().players
+
 var server: WebSocketServer = WebSocketServer.new()
 var webRtcPeers: Dictionary = {}
 var deltaSinceLastUpdate = 0
@@ -28,27 +29,26 @@ func _process(delta):
 		deltaSinceLastUpdate = 0
 		updateCount += 1
 
-		var playerCount = 1
+		var playerCount = worldPlayers.get_child_count()
 		var updateBuffer = StreamPeerBuffer.new()
 		updateBuffer.resize(playerCount * 21 + 4 + 1)
 		updateBuffer.put_u8(0) # update type Player
 		updateBuffer.put_u32(updateCount)
 
-		updateBuffer.put_u32(1)
-
-		var player = get_parent().player
-		if is_instance_valid(player):
-			updateBuffer.put_u8(player.state)
-			updateBuffer.put_float(player.position.x)
-			updateBuffer.put_float(player.position.y)
-			updateBuffer.put_float(player.velocity.x)
-			updateBuffer.put_float(player.velocity.y)
-		else:
-			updateBuffer.put_u8(0)
-			updateBuffer.put_float(0)
-			updateBuffer.put_float(0)
-			updateBuffer.put_float(0)
-			updateBuffer.put_float(0)
+		for player in worldPlayers.get_children():
+			updateBuffer.put_u32(player.id)
+			if is_instance_valid(player):
+				updateBuffer.put_u8(player.state)
+				updateBuffer.put_float(player.position.x)
+				updateBuffer.put_float(player.position.y)
+				updateBuffer.put_float(player.velocity.x)
+				updateBuffer.put_float(player.velocity.y)
+			else:
+				updateBuffer.put_u8(0)
+				updateBuffer.put_float(0)
+				updateBuffer.put_float(0)
+				updateBuffer.put_float(0)
+				updateBuffer.put_float(0)
 
 		updates.append(updateBuffer.get_data_array())
 
@@ -75,18 +75,56 @@ func _process(delta):
 			disconnectedPeers.push_back(i)
 			continue
 
+		if !webRtcPeers[i].addedToWorld:
+			print("new player %d" % [i])
+			get_parent().playersMap[i] = null
+			webRtcPeers[i].addedToWorld = true
+
 		for update in updates:
 			if dataChannel.get_ready_state() == WebRTCDataChannel.STATE_OPEN:
 				dataChannel.put_packet(update)
 
 		if !updates.size() && dataChannel.get_available_packet_count():
-			var packet = dataChannel.get_packet().get_string_from_utf8()
-			clientLogInfo(i, "got DataChannel packet: '%s'" % [packet])
+			# read packet even if player isn't currently valid
+			var inputUpdate: PoolByteArray = dataChannel.get_packet()
+
+			var player = get_parent().playersMap[i]
+			if !is_instance_valid(player):
+				continue
+
+			var inputBuffer = StreamPeerBuffer.new()
+			inputBuffer.set_data_array(inputUpdate)
+
+			var inputId = inputBuffer.get_u32()
+			if inputId < webRtcPeers[i].lastInputId:
+				continue
+			webRtcPeers[i].lastInputId = inputId
+
+			var direction = inputBuffer.get_u8()
+			var clientInputVelocity = Vector2.ZERO
+
+			if direction >= 6:
+				direction -= 6
+				clientInputVelocity.y = 1
+			elif direction >= 3:
+				direction -= 3
+				clientInputVelocity.y = -1
+
+			if direction == 2:
+				clientInputVelocity.x = 1
+			elif direction == 1:
+				clientInputVelocity.x = -1
+
+			player.clientInputVelocity = clientInputVelocity
 
 
 # WebSocket
 func _client_connected(id, protocol):
 	clientLogInfo(id, "connected with protocol '%s'" % [protocol])
+
+	# TODO make a separate ID for webRtcPeers index + playerId ?
+	server.get_peer(id).put_packet(("%d" % [id]).to_ascii())
+
 	webRtcPeers[id] = WebRTCPeer.new(id)
 	webRtcPeers[id].connect("offer_created", self, "_offer_created")
 	webRtcPeers[id].connect("ice_candidate_created", self, "_ice_candidate_created")

@@ -6,6 +6,7 @@ const minSpawnDelay = .2
 
 onready var ysort = $YSort
 onready var bats = $YSort/Bats
+onready var players = $YSort/Players
 onready var spawners = $Spawners.get_children()
 onready var camera = $Camera2D
 
@@ -14,12 +15,13 @@ onready var spawnTimer = $SpawnTimer
 
 var server = true
 var firstTick = true
+var playersMap = {}
 
-var player
 var nextSpawner
 var wave
 var batsSpawned
 var batsKilled
+var playerId
 
 func _process(_delta):
 	if Input.is_action_just_pressed("attack"):
@@ -28,7 +30,7 @@ func _process(_delta):
 		firstTick = false
 
 func restartGame():
-	if server && !is_instance_valid(player) && spawnTimer.is_stopped() && !firstTick:
+	if server && players.get_child_count() == 0 && spawnTimer.is_stopped() && !firstTick:
 		wave = 1
 		nextSpawner = 0
 
@@ -36,13 +38,21 @@ func restartGame():
 			bats.remove_child(bat)
 			bat.free()
 
-		var remoteTransform2D = RemoteTransform2D.new()
-		remoteTransform2D.remote_path = camera.get_path()
+		for id in playersMap:
+			var player = Player.instance()
+			playersMap[id] = player
+			player.id = id
+			player.global_position = Vector2(175, 75)
 
-		player = Player.instance()
-		player.global_position = Vector2(175, 75)
-		player.add_child(remoteTransform2D)
-		ysort.add_child(player)
+			if id == playerId:
+				var remoteTransform2D = RemoteTransform2D.new()
+				remoteTransform2D.remote_path = camera.get_path()
+				player.add_child(remoteTransform2D)
+
+				if server:
+					player.serverPlayer = true
+
+			players.add_child(player)
 
 		PlayerStats.set_health(PlayerStats.max_health)
 
@@ -55,10 +65,10 @@ func _on_WaveTimer_timeout():
 	spawnBat()
 
 func spawnBat():
-	if is_instance_valid(player):
+	if players.get_child_count():
 		var newBat = Bat.instance()
 		newBat.global_position = spawners[nextSpawner].global_position
-		newBat.player = player
+		newBat.player = players.get_child(randi() % players.get_child_count())
 		newBat.id = batsSpawned
 		newBat.connect("killed", self, "_bat_killed")
 		bats.add_child(newBat)
@@ -76,21 +86,49 @@ func _on_SpawnTimer_timeout():
 
 func _bat_killed():
 	batsKilled += 1
-	if is_instance_valid(player) && batsKilled >= wave * 5:
+	if players.get_child_count() && batsKilled >= wave * 5:
+		for id in playersMap:
+			if !playersMap[id] || !is_instance_valid(playersMap[id]):
+				var player = Player.instance()
+				playersMap[id] = player
+				player.id = id
+				player.global_position = Vector2(175, 75)
+
+				if id == playerId:
+					var remoteTransform2D = RemoteTransform2D.new()
+					remoteTransform2D.remote_path = camera.get_path()
+					player.add_child(remoteTransform2D)
+
+					if server:
+						player.serverPlayer = true
+
+				players.add_child(player)
+
+
 		wave += 1
 		print("Wave %d" % [wave])
 		waveTimer.start()
 
-func addClientPlayer(_id):
+func addPlayer(id):
+	playersMap[id] = null
+
+func addClientPlayer(id):
 	if server:
 		return
 
-	player = Player.instance()
+	var player = Player.instance()
 	player.client = true
-	ysort.add_child(player)
+	player.id = true
 
-	for bat in bats.get_children():
-		bat.player = player
+	if id == playerId:
+		var remoteTransform2D = RemoteTransform2D.new()
+		remoteTransform2D.remote_path = camera.get_path()
+		player.add_child(remoteTransform2D)
+
+	players.add_child(player)
+
+	#for bat in bats.get_children():
+	#	bat.player = player
 
 	return player
 
@@ -100,7 +138,7 @@ func addClientBat(id, newBat):
 
 	var bat = Bat.instance()
 	bat.id = id
-	bat.player = player
+	#bat.player = player
 	bat.position = newBat
 	bats.add_child(bat)
 
