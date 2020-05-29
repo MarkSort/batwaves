@@ -8,6 +8,11 @@ func _ready():
 		$VBoxContainer/MarginContainer/VBoxContainer/HostGame.visible = false
 		$VBoxContainer/MarginContainer/VBoxContainer/Quit.visible = false
 
+func _on_SinglePlayer_gui_input(event):
+	if (!is_clicked(event)): return
+
+	get_tree().get_current_scene().singlePlayerGame()
+
 func _on_HostGame_gui_input(event):
 	if (!is_clicked(event)): return
 

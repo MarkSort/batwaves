@@ -17,9 +17,16 @@ func _ready():
 		currentNode = TitleScreen.instance()
 		add_child(currentNode)
 
+func singlePlayerGame():
+	addWorldNode()
+	# add local player
+	currentNode.playersMap[1] = null
+	currentNode.playerId = 1
+
 func hostAndJoinGame():
 	addWorldNode()
 	currentNode.add_child(Server.new())
+	# add local player
 	currentNode.playersMap[1] = null
 	currentNode.playerId = 1
 
