@@ -19,6 +19,8 @@ var roll_vector = Vector2.DOWN
 var stats = PlayerStats
 
 var clientInputVelocity = Vector2.ZERO
+var clientAttack = false
+var clientRoll = false
 var client = false
 var serverPlayer = false
 
@@ -79,11 +81,16 @@ func move_state(delta):
 
 	move()
 
-	if Input.is_action_just_pressed("roll") && serverPlayer:
-		state = ROLL
-
-	if Input.is_action_just_pressed("attack") && serverPlayer:
-		state = ATTACK
+	if serverPlayer:
+		if Input.is_action_just_pressed("roll"):
+			state = ROLL
+		if Input.is_action_just_pressed("attack"):
+			state = ATTACK
+	else:
+		if clientAttack:
+			state = ATTACK
+		if clientRoll:
+			state = ROLL
 
 func roll_state():
 	velocity = roll_vector * ROLL_SPEED

@@ -115,7 +115,11 @@ func _process(delta):
 			elif direction == 1:
 				clientInputVelocity.x = -1
 
+			var actions = inputBuffer.get_u8()
+
 			player.clientInputVelocity = clientInputVelocity
+			player.clientAttack = (actions & 1) > 0
+			player.clientRoll = (actions & 2) > 0
 
 
 # WebSocket

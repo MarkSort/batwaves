@@ -116,11 +116,17 @@ func _process(delta):
 		elif Input.is_action_pressed("ui_down"):
 			inputDirection += 6
 
+		var actions = 0
+		if Input.is_action_pressed("attack"):
+			actions |= 1
+		if Input.is_action_pressed("roll"):
+			actions |= 2
 
 		var inputBuffer = StreamPeerBuffer.new()
 		inputBuffer.resize(5)
 		inputBuffer.put_u32(inputCount)
 		inputBuffer.put_u8(inputDirection)
+		inputBuffer.put_u8(actions)
 
 		dataChannel.put_packet(inputBuffer.get_data_array())
 
