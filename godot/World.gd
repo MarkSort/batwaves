@@ -109,6 +109,21 @@ func _bat_killed():
 		print("Wave %d" % [wave])
 		waveTimer.start()
 
+func _playerKilled(player):
+	players.remove_child(player)
+	playersMap[player.id] = null
+
+	if players.get_child_count() == 0:
+		print("Game Over")
+		for bat in bats.get_children():
+			bat.player = null
+		return
+
+	for bat in bats.get_children():
+		if bat.player == player:
+			bat.player = players.get_child(randi() % players.get_child_count())
+
+
 func addPlayer(id):
 	playersMap[id] = null
 

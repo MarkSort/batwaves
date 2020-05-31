@@ -16,7 +16,7 @@ enum {
 var state = MOVE
 var velocity = Vector2.ZERO
 var roll_vector = Vector2.DOWN
-var stats = PlayerStats
+var health = 4
 
 var clientInputVelocity = Vector2.ZERO
 var clientAttack = false
@@ -34,7 +34,6 @@ onready var blinkAnimationPlayer = $BlinkAnimationPlayer
 var id
 
 func _ready():
-	stats.connect("no_health", self, "queue_free")
 	animationTree.active = true
 	swordHitbox.knockback_vector = roll_vector
 
@@ -114,11 +113,20 @@ func _on_Hurtbox_area_entered(area):
 	if state == ROLL:
 		return
 
-	stats.health -= area.damage
-	hurtbox.start_invincibility(0.6)
-	hurtbox.create_hit_effect()
 	var playerHurtSound = PlayerHurtSound.instance()
 	get_tree().current_scene.add_child(playerHurtSound)
+
+	health -= area.damage
+
+	if serverPlayer:
+		PlayerStats.health = health
+
+	if health <= 0:
+		get_parent().get_parent().get_parent()._playerKilled(self)
+		return queue_free()
+
+	hurtbox.start_invincibility(0.6)
+	hurtbox.create_hit_effect()
 
 func _on_Hurtbox_invincibility_started():
 	blinkAnimationPlayer.play("Start")
