@@ -135,7 +135,7 @@ func addClientPlayer(id):
 
 	var player = Player.instance()
 	player.client = true
-	player.id = true
+	player.id = id
 
 	if id == playerId:
 		var remoteTransform2D = RemoteTransform2D.new()
