@@ -9,6 +9,8 @@ const Server = preload("res://Networking/Server.gd")
 const Client = preload("res://Networking/Client.gd")
 
 func _ready():
+	randomize()
+
 	var buildType = OS.get_name()
 
 	if (buildType == "Server"):
