@@ -103,6 +103,8 @@ func _bat_killed():
 						player.serverPlayer = true
 
 				players.add_child(player)
+			else:
+				playersMap[id].health = 4
 
 
 		wave += 1
