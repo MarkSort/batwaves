@@ -16,7 +16,6 @@ var lastBatUpdateId = 0
 var deltaSinceLastInput = 0
 var inputCount = 0
 
-var players: Dictionary = {}
 var bats: Dictionary = {}
 
 enum {
@@ -26,6 +25,8 @@ enum {
 }
 
 var state = WAITING_FOR_ID
+
+onready var world = get_parent()
 
 func _init():
 	client.connect("data_received", self, "_data_received")
@@ -53,20 +54,43 @@ func _process(delta):
 
 			lastPlayerUpdateId = playerUpdateId
 
+			var playerUpdates = {}
+			var newPlayerIds = []
 			var playerCount = (updateBuffer.get_size() - 4 - 1) / 21
 			var i = 0
 			while i < playerCount:
 				i += 1
 				var id = updateBuffer.get_u32()
+				newPlayerIds.append(id)
 
-				if !players.has(id):
-					players[id] = get_parent().addClientPlayer(id)
+				playerUpdates[id] = {
+					"state": updateBuffer.get_u8(),
+					"position": Vector2(
+						updateBuffer.get_float(),
+						updateBuffer.get_float()
+					),
+					"velocity": Vector2(
+						updateBuffer.get_float(),
+						updateBuffer.get_float()
+					)
+				}
 
-				players[id].state = updateBuffer.get_u8()
-				players[id].position.x = updateBuffer.get_float()
-				players[id].position.y = updateBuffer.get_float()
-				players[id].velocity.x = updateBuffer.get_float()
-				players[id].velocity.y = updateBuffer.get_float()
+			var removePlayers = []
+			for player in world.players.get_children():
+				if playerUpdates.has(player.id):
+					newPlayerIds.erase(player.id)
+					player.state = playerUpdates[player.id].state
+					player.position = playerUpdates[player.id].position
+					player.velocity = playerUpdates[player.id].velocity
+				else:
+					removePlayers.append(player)
+
+			for player in removePlayers:
+				world.players.remove_child(player)
+				player.free()
+
+			for playerId in newPlayerIds:
+				world.addClientPlayer(playerId)
 		else:
 			var batUpdateId = updateBuffer.get_u32()
 			if batUpdateId < lastBatUpdateId:
