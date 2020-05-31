@@ -110,16 +110,16 @@ func _process(delta):
 				)
 
 			var newBats = batUpdates.duplicate()
-			for bat in get_parent().bats.get_children():
+			for bat in world.bats.get_children():
 				if batUpdates.has(bat.id):
 					newBats.erase(bat.id)
 					bat.position.x = batUpdates[bat.id].x
 					bat.position.y = batUpdates[bat.id].y
 				else:
-					get_parent().removeClientBat(bat)
+					world.removeClientBat(bat)
 
 			for id in newBats:
-				get_parent().addClientBat(id, newBats[id])
+				world.addClientBat(id, newBats[id])
 
 	deltaSinceLastInput += delta
 	if deltaSinceLastInput > .05:
@@ -159,7 +159,7 @@ func _process(delta):
 func _data_received():
 	match state:
 		WAITING_FOR_ID:
-			get_parent().playerId = int(client.get_peer(1).get_packet().get_string_from_ascii())
+			world.playerId = int(client.get_peer(1).get_packet().get_string_from_ascii())
 			state = WAITING_FOR_OFFER
 		WAITING_FOR_OFFER:
 			print("client.get_unique_id(): %d" % [client.get_unique_id()])
