@@ -37,18 +37,11 @@ func _process(delta):
 
 		for player in worldPlayers.get_children():
 			updateBuffer.put_u32(player.id)
-			if is_instance_valid(player):
-				updateBuffer.put_u8(player.state)
-				updateBuffer.put_float(player.position.x)
-				updateBuffer.put_float(player.position.y)
-				updateBuffer.put_float(player.velocity.x)
-				updateBuffer.put_float(player.velocity.y)
-			else:
-				updateBuffer.put_u8(0)
-				updateBuffer.put_float(0)
-				updateBuffer.put_float(0)
-				updateBuffer.put_float(0)
-				updateBuffer.put_float(0)
+			updateBuffer.put_u8(player.state)
+			updateBuffer.put_float(player.position.x)
+			updateBuffer.put_float(player.position.y)
+			updateBuffer.put_float(player.velocity.x)
+			updateBuffer.put_float(player.velocity.y)
 
 		updates.append(updateBuffer.get_data_array())
 
