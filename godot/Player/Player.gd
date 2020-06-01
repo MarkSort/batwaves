@@ -30,12 +30,14 @@ onready var animationState = animationTree.get("parameters/playback")
 onready var swordHitbox = $HitboxPivot/SwordHitbox
 onready var hurtbox = $Hurtbox
 onready var blinkAnimationPlayer = $BlinkAnimationPlayer
+onready var sprite = $Sprite
 
 var id
 
 func _ready():
 	animationTree.active = true
 	swordHitbox.knockback_vector = roll_vector
+	sprite.material.set_shader_param("active", false)
 
 	if client:
 		swordHitbox.setClientMode()
@@ -110,11 +112,10 @@ func attack_animation_finished():
 	state = MOVE
 
 func _on_Hurtbox_area_entered(area):
-	if state == ROLL:
+	if client || state == ROLL:
 		return
 
-	var playerHurtSound = PlayerHurtSound.instance()
-	get_tree().current_scene.add_child(playerHurtSound)
+	hurt()
 
 	health -= area.damage
 
@@ -125,8 +126,15 @@ func _on_Hurtbox_area_entered(area):
 		get_parent().get_parent().get_parent().removePlayer(self)
 		return queue_free()
 
-	hurtbox.start_invincibility(0.6)
+	startInvincibility()
+
+func hurt():
+	var playerHurtSound = PlayerHurtSound.instance()
+	get_tree().current_scene.add_child(playerHurtSound)
 	hurtbox.create_hit_effect()
+
+func startInvincibility():
+	hurtbox.start_invincibility(0.6)
 
 func _on_Hurtbox_invincibility_started():
 	blinkAnimationPlayer.play("Start")

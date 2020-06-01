@@ -72,7 +72,8 @@ func _process(delta):
 					"velocity": Vector2(
 						updateBuffer.get_float(),
 						updateBuffer.get_float()
-					)
+					),
+					"health": updateBuffer.get_u8()
 				}
 
 			var removePlayers = []
@@ -82,6 +83,11 @@ func _process(delta):
 					player.state = playerUpdates[player.id].state
 					player.position = playerUpdates[player.id].position
 					player.velocity = playerUpdates[player.id].velocity
+					if playerUpdates[player.id].health < player.health:
+						player.hurt()
+						if playerUpdates[player.id].health > 0:
+							player.startInvincibility()
+					player.health = playerUpdates[player.id].health
 				else:
 					removePlayers.append(player)
 
