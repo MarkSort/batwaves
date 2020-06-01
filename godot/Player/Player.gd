@@ -122,7 +122,7 @@ func _on_Hurtbox_area_entered(area):
 		PlayerStats.health = health
 
 	if health <= 0:
-		get_parent().get_parent().get_parent()._playerKilled(self)
+		get_parent().get_parent().get_parent().removePlayer(self)
 		return queue_free()
 
 	hurtbox.start_invincibility(0.6)

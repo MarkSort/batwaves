@@ -121,6 +121,9 @@ func _process(delta):
 			player.clientAttack = (actions & 1) > 0
 			player.clientRoll = (actions & 2) > 0
 
+	for i in disconnectedPeers:
+		get_parent().disconnectPlayer(i)
+		webRtcPeers.erase(i)
 
 # WebSocket
 func _client_connected(id, protocol):
