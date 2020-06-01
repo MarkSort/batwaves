@@ -111,6 +111,8 @@ func _bat_killed():
 		print("Wave %d" % [wave])
 		waveTimer.start()
 
+		PlayerStats.set_health(PlayerStats.max_health)
+
 func removePlayer(player):
 	players.remove_child(player)
 	playersMap[player.id] = null

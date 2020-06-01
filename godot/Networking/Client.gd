@@ -88,10 +88,14 @@ func _process(delta):
 						if playerUpdates[player.id].health > 0:
 							player.startInvincibility()
 					player.health = playerUpdates[player.id].health
+					if world.playerId == player.id:
+						PlayerStats.health = player.health
 				else:
 					removePlayers.append(player)
 
 			for player in removePlayers:
+				if world.playerId == player.id:
+					PlayerStats.health = 0
 				world.players.remove_child(player)
 				player.free()
 
