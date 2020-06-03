@@ -73,7 +73,8 @@ func _process(delta):
 						updateBuffer.get_float(),
 						updateBuffer.get_float()
 					),
-					"health": updateBuffer.get_u8()
+					"health": updateBuffer.get_u8(),
+					"facing": updateBuffer.get_u8()
 				}
 
 			var removePlayers = []
@@ -90,6 +91,24 @@ func _process(delta):
 					player.health = playerUpdates[player.id].health
 					if world.playerId == player.id:
 						PlayerStats.health = player.health
+
+					var facingVector = Vector2.ZERO
+					var facing = playerUpdates[player.id].facing
+					if facing >= 6:
+						facing -= 6
+						facingVector.y = 1
+					elif facing >= 3:
+						facing -= 3
+						facingVector.y = -1
+
+					if facing == 2:
+						facingVector.x = 1
+					elif facing == 1:
+						facingVector.x = -1
+
+					player.setBlendPositions(facingVector)
+					player.roll_vector = facingVector
+
 				else:
 					removePlayers.append(player)
 

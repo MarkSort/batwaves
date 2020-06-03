@@ -23,6 +23,7 @@ var clientAttack = false
 var clientRoll = false
 var client = false
 var serverPlayer = false
+var facing = Vector2.DOWN
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -69,10 +70,7 @@ func move_state(delta):
 	if input_vector != Vector2.ZERO:
 		roll_vector = input_vector
 		swordHitbox.knockback_vector = input_vector
-		animationTree.set("parameters/Idle/blend_position", input_vector)
-		animationTree.set("parameters/Run/blend_position", input_vector)
-		animationTree.set("parameters/Attack/blend_position", input_vector)
-		animationTree.set("parameters/Roll/blend_position", input_vector)
+		setBlendPositions(input_vector)
 		animationState.travel("Run")
 		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
 	else:
@@ -91,6 +89,12 @@ func move_state(delta):
 			state = ATTACK
 		if clientRoll:
 			state = ROLL
+
+func setBlendPositions(blendPosition):
+	animationTree.set("parameters/Idle/blend_position", blendPosition)
+	animationTree.set("parameters/Run/blend_position", blendPosition)
+	animationTree.set("parameters/Attack/blend_position", blendPosition)
+	animationTree.set("parameters/Roll/blend_position", blendPosition)
 
 func roll_state():
 	velocity = roll_vector * ROLL_SPEED

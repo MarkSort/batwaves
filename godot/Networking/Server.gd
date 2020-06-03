@@ -36,6 +36,17 @@ func _process(delta):
 		updateBuffer.put_u32(updateCount)
 
 		for player in worldPlayers.get_children():
+			var facing = 0
+
+			if player.roll_vector.x < 0:
+				facing += 1
+			elif player.roll_vector.x > 0:
+				facing += 2
+			if player.roll_vector.y < 0:
+				facing += 3
+			elif player.roll_vector.y > 0:
+				facing += 6
+
 			updateBuffer.put_u32(player.id)
 			updateBuffer.put_u8(player.state)
 			updateBuffer.put_float(player.position.x)
@@ -43,6 +54,7 @@ func _process(delta):
 			updateBuffer.put_float(player.velocity.x)
 			updateBuffer.put_float(player.velocity.y)
 			updateBuffer.put_u8(player.health)
+			updateBuffer.put_u8(facing)
 
 		updates.append(updateBuffer.get_data_array())
 
