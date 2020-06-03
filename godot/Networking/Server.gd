@@ -42,6 +42,10 @@ func _process(delta):
 			updateBuffer.put_float(player.position.y)
 			updateBuffer.put_float(player.velocity.x)
 			updateBuffer.put_float(player.velocity.y)
+			if player.state == player.MOVE:
+				updateBuffer.put_u8(player.rawInputVector)
+			else:
+				updateBuffer.put_u8(player.rawActionVector)
 			updateBuffer.put_u8(player.health)
 
 		updates.append(updateBuffer.get_data_array())
@@ -95,6 +99,7 @@ func _process(delta):
 			webRtcPeers[i].lastInputId = inputId
 
 			var direction = inputBuffer.get_u8()
+			player.rawInputVector = direction
 			var clientInputVelocity = Vector2.ZERO
 
 			if direction >= 6:

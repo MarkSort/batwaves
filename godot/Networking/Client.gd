@@ -73,6 +73,7 @@ func _process(delta):
 						updateBuffer.get_float(),
 						updateBuffer.get_float()
 					),
+					"direction": updateBuffer.get_u8(),
 					"health": updateBuffer.get_u8()
 				}
 
@@ -80,9 +81,31 @@ func _process(delta):
 			for player in world.players.get_children():
 				if playerUpdates.has(player.id):
 					newPlayerIds.erase(player.id)
-					player.state = playerUpdates[player.id].state
 					player.position = playerUpdates[player.id].position
 					player.velocity = playerUpdates[player.id].velocity
+
+					if playerUpdates[player.id].direction != 0:
+						var directionVector = Vector2.ZERO
+						var direction = playerUpdates[player.id].direction
+						if direction >= 6:
+							direction -= 6
+							directionVector.y = 1
+						elif direction >= 3:
+							direction -= 3
+							directionVector.y = -1
+
+						if direction == 2:
+							directionVector.x = 1
+						elif direction == 1:
+							directionVector.x = -1
+
+						player.input_vector = directionVector
+						player.roll_vector = directionVector
+
+					if player.state == player.MOVE && playerUpdates[player.id].state != player.MOVE:
+						player.setBlendPositions()
+					player.state = playerUpdates[player.id].state
+
 					if playerUpdates[player.id].health < player.health:
 						player.hurt()
 						if playerUpdates[player.id].health > 0:

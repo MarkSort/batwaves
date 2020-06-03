@@ -13,6 +13,7 @@ enum {
 	ATTACK
 }
 
+var input_vector = Vector2.ZERO
 var state = MOVE
 var velocity = Vector2.ZERO
 var roll_vector = Vector2.DOWN
@@ -23,6 +24,8 @@ var clientAttack = false
 var clientRoll = false
 var client = false
 var serverPlayer = false
+var rawInputVector = 0
+var rawActionVector = 0
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -56,23 +59,33 @@ func _physics_process(delta):
 			attack_state()
 
 func move_state(delta):
-	var input_vector = Vector2.ZERO
-	if client:
-		input_vector = velocity
-	elif serverPlayer:
+
+	if serverPlayer:
+		input_vector = Vector2.ZERO
 		input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 		input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	else:
-		input_vector = clientInputVelocity
+
+		rawInputVector = 0
+		if Input.is_action_pressed("ui_left") && Input.is_action_pressed("ui_right"):
+			pass
+		elif Input.is_action_pressed("ui_left"):
+			rawInputVector += 1
+		elif Input.is_action_pressed("ui_right"):
+			rawInputVector += 2
+		if Input.is_action_pressed("ui_up") && Input.is_action_pressed("ui_down"):
+			pass
+		elif Input.is_action_pressed("ui_up"):
+			rawInputVector += 3
+		elif Input.is_action_pressed("ui_down"):
+			rawInputVector += 6
+	elif !client:
+		input_vector = velocity
 	input_vector = input_vector.normalized()
 
 	if input_vector != Vector2.ZERO:
 		roll_vector = input_vector
 		swordHitbox.knockback_vector = input_vector
-		animationTree.set("parameters/Idle/blend_position", input_vector)
-		animationTree.set("parameters/Run/blend_position", input_vector)
-		animationTree.set("parameters/Attack/blend_position", input_vector)
-		animationTree.set("parameters/Roll/blend_position", input_vector)
+		setBlendPositions()
 		animationState.travel("Run")
 		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
 	else:
@@ -84,13 +97,23 @@ func move_state(delta):
 	if serverPlayer:
 		if Input.is_action_just_pressed("roll"):
 			state = ROLL
+			rawActionVector = rawInputVector
 		if Input.is_action_just_pressed("attack"):
 			state = ATTACK
+			rawActionVector = rawInputVector
 	else:
 		if clientAttack:
 			state = ATTACK
+			rawActionVector = rawInputVector
 		if clientRoll:
 			state = ROLL
+			rawActionVector = rawInputVector
+
+func setBlendPositions():
+	animationTree.set("parameters/Idle/blend_position", input_vector)
+	animationTree.set("parameters/Run/blend_position", input_vector)
+	animationTree.set("parameters/Attack/blend_position", input_vector)
+	animationTree.set("parameters/Roll/blend_position", input_vector)
 
 func roll_state():
 	velocity = roll_vector * ROLL_SPEED
