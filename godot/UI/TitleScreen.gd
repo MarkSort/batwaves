@@ -1,5 +1,7 @@
 extends MarginContainer
 
+var skin = 1
+
 func _ready():
 
 	var buildType = OS.get_name()
@@ -11,22 +13,37 @@ func _ready():
 func _on_SinglePlayer_gui_input(event):
 	if (!is_clicked(event)): return
 
-	get_tree().get_current_scene().singlePlayerGame()
+	get_tree().get_current_scene().singlePlayerGame(skin)
 
 func _on_HostGame_gui_input(event):
 	if (!is_clicked(event)): return
 
-	get_tree().get_current_scene().hostAndJoinGame()
+	get_tree().get_current_scene().hostAndJoinGame(skin)
 
 func _on_JoinGame_gui_input(event):
 	if (!is_clicked(event)): return
 
-	get_tree().get_current_scene().joinGame()
+	get_tree().get_current_scene().joinGame(skin)
 
 func _on_Quit_gui_input(event):
 	if (!is_clicked(event)): return
 
 	get_tree().quit()
+
+func _on_ChangePlayer_gui_input(event):
+	if (!is_clicked(event)): return
+
+	skin += 1
+	if skin > 6:
+		skin = 1
+
+	setSkin()
+
+func setSkin():
+	var anim = "Player"
+	if skin > 1:
+		anim = "Player%d" % [skin]
+	$AnimatedSprite.play(anim)
 
 
 func is_clicked(event):
@@ -41,3 +58,4 @@ func is_clicked(event):
 
 	get_tree().set_input_as_handled()
 	return true
+

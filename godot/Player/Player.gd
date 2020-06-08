@@ -34,6 +34,7 @@ onready var blinkAnimationPlayer = $BlinkAnimationPlayer
 onready var sprite = $Sprite
 
 var id
+var skin = 1
 
 func _ready():
 	animationTree.active = true
@@ -43,6 +44,9 @@ func _ready():
 	if client:
 		swordHitbox.setClientMode()
 		hurtbox.setClientMode()
+
+	if skin > 1:
+		sprite.texture = load("res://Player/Player%d.png" % [skin])
 
 func _physics_process(delta):
 

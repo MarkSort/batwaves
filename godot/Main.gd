@@ -19,23 +19,26 @@ func _ready():
 		currentNode = TitleScreen.instance()
 		add_child(currentNode)
 
-func singlePlayerGame():
+func singlePlayerGame(skin):
 	addWorldNode()
 	# add local player
 	currentNode.playersMap[1] = null
 	currentNode.playerId = 1
+	currentNode.playerSkins[1] = skin
 
-func hostAndJoinGame():
+func hostAndJoinGame(skin):
 	addWorldNode()
 	currentNode.add_child(Server.new())
 	# add local player
 	currentNode.playersMap[1] = null
 	currentNode.playerId = 1
+	currentNode.playerSkins[1] = skin
 
-func joinGame():
+func joinGame(skin):
 	addWorldNode()
 	currentNode.server = false
 	currentNode.add_child(Client.new())
+	currentNode.skin = skin
 
 func hostGame():
 	addWorldNode()

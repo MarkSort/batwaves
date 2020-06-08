@@ -16,6 +16,8 @@ onready var spawnTimer = $SpawnTimer
 var server = true
 var firstTick = true
 var playersMap = {}
+var playerSkins = {}
+var skin = 0
 
 var nextSpawner
 var wave
@@ -42,6 +44,7 @@ func restartGame():
 			var player = Player.instance()
 			playersMap[id] = player
 			player.id = id
+			player.skin = getSkin(id)
 			player.global_position = Vector2(175, 75)
 
 			if id == playerId:
@@ -92,6 +95,7 @@ func _bat_killed():
 				var player = Player.instance()
 				playersMap[id] = player
 				player.id = id
+				player.skin = getSkin(id)
 				player.global_position = Vector2(175, 75)
 
 				if id == playerId:
@@ -112,6 +116,13 @@ func _bat_killed():
 		waveTimer.start()
 
 		PlayerStats.set_health(PlayerStats.max_health)
+
+func getSkin(id):
+	if skin && id == playerId:
+		return skin
+	if playerSkins.has(id):
+		return playerSkins[id]
+	return 1
 
 func removePlayer(player):
 	players.remove_child(player)
@@ -145,6 +156,7 @@ func addClientPlayer(id):
 	var player = Player.instance()
 	player.client = true
 	player.id = id
+	player.skin = getSkin(id)
 
 	if id == playerId:
 		var remoteTransform2D = RemoteTransform2D.new()
