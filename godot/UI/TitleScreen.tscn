@@ -298,8 +298,7 @@ text = "Change Player"
 position = Vector2( 107.379, 123.374 )
 frames = SubResource( 43 )
 animation = "Player"
-frame = 4
-playing = true
+frame = 1
 [connection signal="gui_input" from="VBoxContainer/MarginContainer/VBoxContainer/SinglePlayer" to="." method="_on_SinglePlayer_gui_input"]
 [connection signal="gui_input" from="VBoxContainer/MarginContainer/VBoxContainer/HostGame" to="." method="_on_HostGame_gui_input"]
 [connection signal="gui_input" from="VBoxContainer/MarginContainer/VBoxContainer/JoinGame" to="." method="_on_JoinGame_gui_input"]

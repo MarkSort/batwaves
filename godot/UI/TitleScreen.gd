@@ -3,7 +3,9 @@ extends MarginContainer
 var skin = 1
 
 func _ready():
-
+	
+	setSkin()
+	
 	var buildType = OS.get_name()
 
 	if buildType == "HTML5":
