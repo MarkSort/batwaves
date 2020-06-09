@@ -131,7 +131,7 @@ func _process(delta):
 
 			lastBatUpdateId = batUpdateId
 
-			var wave = updateBuffer.get_u32()
+			var wave = updateBuffer.get_u8()
 
 			var batCount = (updateBuffer.get_size() - 4 - 1 - 1) / 9
 			var i = 0
