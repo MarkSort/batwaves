@@ -31,7 +31,7 @@ func _process(delta):
 
 		var playerCount = worldPlayers.get_child_count()
 		var updateBuffer = StreamPeerBuffer.new()
-		updateBuffer.resize(playerCount * 22 + 4 + 1)
+		updateBuffer.resize(playerCount * 23 + 4 + 1)
 		updateBuffer.put_u8(0) # update type Player
 		updateBuffer.put_u32(updateCount)
 
@@ -55,6 +55,7 @@ func _process(delta):
 			updateBuffer.put_float(player.velocity.y)
 			updateBuffer.put_u8(player.health)
 			updateBuffer.put_u8(facing)
+			updateBuffer.put_u8(get_parent().playerSkins[player.id])
 
 		updates.append(updateBuffer.get_data_array())
 
@@ -145,8 +146,13 @@ func _client_connected(id, protocol):
 
 func _data_received(id):
 	clientLogInfo(id, "server received answer")
-	var answer = server.get_peer(id).get_packet().get_string_from_utf8()
-	webRtcPeers[id].setAnswer(answer)
+	var skinAndAnswer = server.get_peer(id).get_packet().get_string_from_utf8()
+
+	var skin = int(skinAndAnswer[0])
+	get_parent().playerSkins[id] = skin
+
+	skinAndAnswer.erase(0, 1)
+	webRtcPeers[id].setAnswer(skinAndAnswer)
 
 func _client_disconnected(id, was_clean_close):
 	if was_clean_close:

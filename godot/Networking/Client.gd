@@ -28,6 +28,8 @@ var state = WAITING_FOR_ID
 
 onready var world = get_parent()
 
+var skin = 1
+
 func _init():
 	client.connect("data_received", self, "_data_received")
 	client.connect("connection_closed", self, "_connection_closed")
@@ -56,7 +58,7 @@ func _process(delta):
 
 			var playerUpdates = {}
 			var newPlayerIds = []
-			var playerCount = (updateBuffer.get_size() - 4 - 1) / 21
+			var playerCount = (updateBuffer.get_size() - 4 - 1) / 23
 			var i = 0
 			while i < playerCount:
 				i += 1
@@ -74,7 +76,8 @@ func _process(delta):
 						updateBuffer.get_float()
 					),
 					"health": updateBuffer.get_u8(),
-					"facing": updateBuffer.get_u8()
+					"facing": updateBuffer.get_u8(),
+					"skin": updateBuffer.get_u8()
 				}
 
 			var removePlayers = []
@@ -119,6 +122,7 @@ func _process(delta):
 				player.free()
 
 			for playerId in newPlayerIds:
+				world.playerSkins[playerId] = playerUpdates[playerId].skin
 				world.addClientPlayer(playerId)
 		else:
 			var batUpdateId = updateBuffer.get_u32()
@@ -218,7 +222,8 @@ func _connection_error():
 #WebRTC
 func _session_description_created(type, sdp):
 	webRtc.set_local_description(type, sdp)
-	client.get_peer(1).put_packet(sdp.to_utf8())
+	var skinAndSdp = "%d%s" % [skin, sdp]
+	client.get_peer(1).put_packet(skinAndSdp.to_utf8())
 
 func _data_channel_received(dataChannel):
 	self.dataChannel = dataChannel
