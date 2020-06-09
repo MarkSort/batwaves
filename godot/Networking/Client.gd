@@ -131,7 +131,9 @@ func _process(delta):
 
 			lastBatUpdateId = batUpdateId
 
-			var batCount = (updateBuffer.get_size() - 4 - 1) / 9
+			var wave = updateBuffer.get_u32()
+
+			var batCount = (updateBuffer.get_size() - 4 - 1 - 1) / 9
 			var i = 0
 			var batUpdates = {}
 			while i < batCount:
@@ -141,6 +143,14 @@ func _process(delta):
 					updateBuffer.get_float(),
 					updateBuffer.get_float()
 				)
+
+			var playerCount = world.players.get_child_count()
+			if batCount == 0 && playerCount > 0:
+				world.status.text = "Wave %d" % [wave]
+			elif playerCount == 0:
+				world.status.text = "Game Over\non Wave %d" % [wave]
+			else:
+				world.status.text = ""
 
 			var newBats = batUpdates.duplicate()
 			for bat in world.bats.get_children():

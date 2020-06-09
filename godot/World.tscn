@@ -1,5 +1,6 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=58 format=2]
 
+[ext_resource path="res://Fonts/PressStart2P-vaV7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://World/GrassBackground.png" type="Texture" id=3]
 [ext_resource path="res://World/DirtTileset.png" type="Texture" id=4]
 [ext_resource path="res://World/CliffTileset.png" type="Texture" id=5]
@@ -481,6 +482,9 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 } ]
 0/z_index = 0
 
+[sub_resource type="DynamicFont" id=50]
+font_data = ExtResource( 1 )
+
 [node name="World" type="Node2D"]
 script = ExtResource( 6 )
 
@@ -525,6 +529,18 @@ margin_left = 3.0
 margin_top = 3.0
 margin_right = 63.0
 margin_bottom = 14.0
+
+[node name="Status" type="Label" parent="CanvasLayer"]
+margin_left = -1.0
+margin_top = 31.0
+margin_right = 317.0
+margin_bottom = 45.0
+custom_fonts/font = SubResource( 50 )
+text = "Attack to Start"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Spawners" type="Node" parent="."]
 

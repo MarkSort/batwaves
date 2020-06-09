@@ -37,6 +37,7 @@ func hostAndJoinGame(skin):
 func joinGame(skin):
 	addWorldNode()
 	currentNode.server = false
+	currentNode.status.text = ""
 	var client = Client.new()
 	client.skin = skin
 	currentNode.add_child(client)

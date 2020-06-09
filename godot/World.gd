@@ -9,6 +9,7 @@ onready var bats = $YSort/Bats
 onready var players = $YSort/Players
 onready var spawners = $Spawners.get_children()
 onready var camera = $Camera2D
+onready var status = $CanvasLayer/Status
 
 onready var waveTimer = $WaveTimer
 onready var spawnTimer = $SpawnTimer
@@ -20,7 +21,7 @@ var playerSkins = {}
 var skin = 0
 
 var nextSpawner
-var wave
+var wave = 1
 var batsSpawned
 var batsKilled
 var playerId
@@ -59,10 +60,11 @@ func restartGame():
 
 		PlayerStats.set_health(PlayerStats.max_health)
 
+		status.text = "Wave 1"
 		waveTimer.start()
-		print("Wave 1")
 
 func _on_WaveTimer_timeout():
+	status.text = ""
 	batsSpawned = 0
 	batsKilled = 0
 	spawnBat()
@@ -112,7 +114,7 @@ func _bat_killed():
 
 
 		wave += 1
-		print("Wave %d" % [wave])
+		status.text = "Wave %d" % [wave]
 		waveTimer.start()
 
 		PlayerStats.set_health(PlayerStats.max_health)
@@ -129,7 +131,7 @@ func removePlayer(player):
 	playersMap[player.id] = null
 
 	if players.get_child_count() == 0:
-		print("Game Over")
+		status.text = "Game Over\non Wave %d\n\nAttack to Restart" % [wave]
 		for bat in bats.get_children():
 			bat.player = null
 		return
