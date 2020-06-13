@@ -174,6 +174,10 @@ func doPlayerUpdate(playerUpdateId, updateBuffer):
 		if world.playerId == player.id:
 			PlayerStats.health = 0
 		world.players.remove_child(player)
+		world.playersMap[player.id] = null
+		for bat in world.bats.get_children():
+			if bat.player == player:
+				bat.player = null
 		player.free()
 
 	for playerId in newPlayerIds:
@@ -185,16 +189,19 @@ func doBatUpdate(batUpdateId, updateBuffer):
 
 	var wave = updateBuffer.get_u8()
 
-	var batCount = (updateBuffer.get_size() - 4 - 1 - 1) / 9
+	var batCount = (updateBuffer.get_size() - 4 - 1 - 1) / 13
 	var i = 0
 	var batUpdates = {}
 	while i < batCount:
 		i += 1
 		var id = updateBuffer.get_u8()
-		batUpdates[id] = Vector2(
-			updateBuffer.get_float(),
-			updateBuffer.get_float()
-		)
+		batUpdates[id] = {
+			"position": Vector2(
+				updateBuffer.get_float(),
+				updateBuffer.get_float()
+			),
+			"player": updateBuffer.get_u32()
+		}
 
 	var playerCount = world.players.get_child_count()
 	if batCount == 0 && playerCount > 0:
@@ -208,8 +215,12 @@ func doBatUpdate(batUpdateId, updateBuffer):
 	for bat in world.bats.get_children():
 		if batUpdates.has(bat.id):
 			newBats.erase(bat.id)
-			bat.position.x = batUpdates[bat.id].x
-			bat.position.y = batUpdates[bat.id].y
+			bat.position.x = batUpdates[bat.id].position.x
+			bat.position.y = batUpdates[bat.id].position.y
+			if world.playersMap.has(batUpdates[bat.id].player):
+				bat.player = world.playersMap[batUpdates[bat.id].player]
+			else:
+				bat.player = null
 		else:
 			world.removeClientBat(bat)
 

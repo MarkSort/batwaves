@@ -166,9 +166,7 @@ func addClientPlayer(id):
 		player.add_child(remoteTransform2D)
 
 	players.add_child(player)
-
-	#for bat in bats.get_children():
-	#	bat.player = player
+	playersMap[id] = player
 
 	return player
 
@@ -178,8 +176,11 @@ func addClientBat(id, newBat):
 
 	var bat = Bat.instance()
 	bat.id = id
-	#bat.player = player
-	bat.position = newBat
+	bat.position = newBat.position
+
+	if playersMap.has(newBat.player):
+		bat.player = playersMap[newBat.player]
+
 	bats.add_child(bat)
 
 func removeClientBat(bat):

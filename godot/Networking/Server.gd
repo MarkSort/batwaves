@@ -61,7 +61,7 @@ func _process(delta):
 
 		var bats = get_parent().bats.get_children()
 		updateBuffer = StreamPeerBuffer.new()
-		updateBuffer.resize(bats.size() * 9 + 4 + 1 + 1)
+		updateBuffer.resize(bats.size() * 13 + 4 + 1 + 1)
 		updateBuffer.put_u8(1) # update type Bat
 		updateBuffer.put_u32(updateCount)
 		updateBuffer.put_u8(get_parent().wave)
@@ -70,6 +70,10 @@ func _process(delta):
 			updateBuffer.put_u8(bat.id)
 			updateBuffer.put_float(bat.position.x)
 			updateBuffer.put_float(bat.position.y)
+			if bat.player:
+				updateBuffer.put_u32(bat.player.id)
+			else:
+				updateBuffer.put_u32(0)
 
 		updates.append(updateBuffer.get_data_array())
 
