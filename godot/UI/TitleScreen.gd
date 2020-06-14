@@ -9,8 +9,8 @@ func _ready():
 	var buildType = OS.get_name()
 
 	if buildType == "HTML5":
-		$VBoxContainer/MarginContainer/VBoxContainer/HostGame.visible = false
-		$VBoxContainer/MarginContainer/VBoxContainer/Quit.visible = false
+		$MainMenu/MarginContainer/VBoxContainer/HostGame.visible = false
+		$MainMenu/MarginContainer/VBoxContainer/Quit.visible = false
 
 func _on_SinglePlayer_gui_input(event):
 	if (!is_clicked(event)): return
@@ -25,7 +25,8 @@ func _on_HostGame_gui_input(event):
 func _on_JoinGame_gui_input(event):
 	if (!is_clicked(event)): return
 
-	get_tree().get_current_scene().joinGame(skin)
+	$JoinGameMenu.visible = true
+	$MainMenu.visible = false
 
 func _on_Quit_gui_input(event):
 	if (!is_clicked(event)): return
@@ -45,8 +46,18 @@ func setSkin():
 	var anim = "Player"
 	if skin > 1:
 		anim = "Player%d" % [skin]
-	$AnimatedSprite.play(anim)
+	$MainMenu/AnimatedSprite.play(anim)
 
+func _on_JoinGame2_gui_input(event):
+	if (!is_clicked(event)): return
+
+	get_tree().get_current_scene().joinGame(skin, $JoinGameMenu/ServerAddress.text)
+
+func _on_Back_gui_input(event):
+	if (!is_clicked(event)): return
+
+	$JoinGameMenu.visible = false
+	$MainMenu.visible = true
 
 func is_clicked(event):
 	if (!(event is InputEventMouseButton)):

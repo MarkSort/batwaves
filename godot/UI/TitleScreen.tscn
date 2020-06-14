@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://UI/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player2.png" type="Texture" id=2]
@@ -34,181 +34,193 @@ size = 10
 font_data = ExtResource( 8 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 5 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 5 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 5 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 5 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 5 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 6 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 6 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 6 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 6 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 6 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 7 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 7 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 7 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 7 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 7 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 3 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=33]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 3 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=34]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 3 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 3 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=36]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 3 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=37]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=38]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=39]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 2 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 2 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 2 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 2 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=43]
 animations = [ {
 "frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
-"name": "Player",
+"name": "Player3",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
 "loop": true,
-"name": "Player3",
+"name": "Player",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
 "loop": true,
-"name": "Player2",
+"name": "Player5",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
 "loop": true,
-"name": "Player4",
+"name": "Player6",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ) ],
 "loop": true,
-"name": "Player5",
+"name": "Player4",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ) ],
 "loop": true,
-"name": "Player6",
+"name": "Player2",
 "speed": 10.0
 } ]
+
+[sub_resource type="DynamicFont" id=44]
+size = 7
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=45]
+size = 10
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=46]
+size = 10
+font_data = ExtResource( 8 )
 
 [node name="TitleScreen" type="MarginContainer"]
 margin_right = 40.0
@@ -228,87 +240,133 @@ texture = ExtResource( 9 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 75, 432 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MainMenu" type="VBoxContainer" parent="."]
 margin_left = 20.0
 margin_top = 10.0
-margin_right = 170.0
-margin_bottom = 150.0
+margin_right = 300.0
+margin_bottom = 173.0
 
-[node name="Title" type="Label" parent="VBoxContainer"]
-margin_right = 150.0
+[node name="Title" type="Label" parent="MainMenu"]
+margin_right = 280.0
 margin_bottom = 16.0
 custom_fonts/font = SubResource( 1 )
 text = "Bat Waves"
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
 margin_top = 20.0
-margin_right = 150.0
+margin_right = 280.0
 margin_bottom = 140.0
 custom_constants/margin_top = 10
 custom_constants/margin_left = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer"]
 margin_left = 20.0
 margin_top = 10.0
-margin_right = 150.0
+margin_right = 280.0
 margin_bottom = 120.0
 
-[node name="SinglePlayer" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer"]
-margin_right = 130.0
+[node name="SinglePlayer" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
+margin_right = 260.0
 margin_bottom = 10.0
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 custom_fonts/font = SubResource( 2 )
 text = "Single Player"
 
-[node name="HostGame" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HostGame" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
 margin_top = 14.0
-margin_right = 130.0
+margin_right = 260.0
 margin_bottom = 24.0
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 custom_fonts/font = SubResource( 3 )
 text = "Host Game"
 
-[node name="JoinGame" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="JoinGame" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
 margin_top = 28.0
-margin_right = 130.0
+margin_right = 260.0
 margin_bottom = 38.0
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 custom_fonts/font = SubResource( 4 )
 text = "Join Game"
 
-[node name="Quit" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Quit" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
 margin_top = 42.0
-margin_right = 130.0
+margin_right = 260.0
 margin_bottom = 52.0
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 custom_fonts/font = SubResource( 5 )
 text = "Quit"
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/MarginContainer/VBoxContainer"]
 margin_top = 56.0
-margin_right = 130.0
+margin_right = 260.0
 margin_bottom = 110.0
 mouse_default_cursor_shape = 2
 custom_constants/margin_top = 44
 custom_constants/margin_left = 0
 
-[node name="ChangePlayer" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="ChangePlayer" type="Label" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer"]
 margin_top = 44.0
-margin_right = 130.0
+margin_right = 260.0
 margin_bottom = 54.0
 custom_fonts/font = SubResource( 6 )
 text = "Change Player"
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 107.038, 116.563 )
+[node name="AnimatedSprite" type="AnimatedSprite" parent="MainMenu"]
+position = Vector2( 87.038, 106.563 )
 frames = SubResource( 43 )
 animation = "Player"
-[connection signal="gui_input" from="VBoxContainer/MarginContainer/VBoxContainer/SinglePlayer" to="." method="_on_SinglePlayer_gui_input"]
-[connection signal="gui_input" from="VBoxContainer/MarginContainer/VBoxContainer/HostGame" to="." method="_on_HostGame_gui_input"]
-[connection signal="gui_input" from="VBoxContainer/MarginContainer/VBoxContainer/JoinGame" to="." method="_on_JoinGame_gui_input"]
-[connection signal="gui_input" from="VBoxContainer/MarginContainer/VBoxContainer/Quit" to="." method="_on_Quit_gui_input"]
-[connection signal="gui_input" from="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer" to="." method="_on_ChangePlayer_gui_input"]
+
+[node name="JoinGameMenu" type="VBoxContainer" parent="."]
+visible = false
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 300.0
+margin_bottom = 173.0
+
+[node name="ServerAddressLabel" type="Label" parent="JoinGameMenu"]
+margin_right = 280.0
+margin_bottom = 7.0
+custom_fonts/font = SubResource( 44 )
+text = "Server Address"
+
+[node name="ServerAddress" type="LineEdit" parent="JoinGameMenu"]
+margin_top = 11.0
+margin_right = 280.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 280, 0 )
+text = "batwaves.marksort.com"
+
+[node name="JoinGame" type="Label" parent="JoinGameMenu"]
+margin_top = 39.0
+margin_right = 280.0
+margin_bottom = 49.0
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 45 )
+text = "Join Game"
+
+[node name="MarginContainer" type="MarginContainer" parent="JoinGameMenu"]
+margin_top = 53.0
+margin_right = 280.0
+margin_bottom = 163.0
+custom_constants/margin_top = 100
+
+[node name="Back" type="Label" parent="JoinGameMenu/MarginContainer"]
+margin_top = 100.0
+margin_right = 280.0
+margin_bottom = 110.0
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 46 )
+text = "< Back"
+[connection signal="gui_input" from="MainMenu/MarginContainer/VBoxContainer/SinglePlayer" to="." method="_on_SinglePlayer_gui_input"]
+[connection signal="gui_input" from="MainMenu/MarginContainer/VBoxContainer/HostGame" to="." method="_on_HostGame_gui_input"]
+[connection signal="gui_input" from="MainMenu/MarginContainer/VBoxContainer/JoinGame" to="." method="_on_JoinGame_gui_input"]
+[connection signal="gui_input" from="MainMenu/MarginContainer/VBoxContainer/Quit" to="." method="_on_Quit_gui_input"]
+[connection signal="gui_input" from="MainMenu/MarginContainer/VBoxContainer/MarginContainer" to="." method="_on_ChangePlayer_gui_input"]
+[connection signal="gui_input" from="JoinGameMenu/JoinGame" to="." method="_on_JoinGame2_gui_input"]
+[connection signal="gui_input" from="JoinGameMenu/MarginContainer/Back" to="." method="_on_Back_gui_input"]

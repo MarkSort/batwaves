@@ -18,6 +18,8 @@ var inputCount = 0
 
 var bats: Dictionary = {}
 
+var address: String
+
 enum {
 	WAITING_FOR_ID,
 	WAITING_FOR_OFFER,
@@ -38,7 +40,11 @@ func _init():
 	webRtc.connect("session_description_created", self, "_session_description_created")
 
 func _ready():
-	client.connect_to_url("ws://192.168.7.144:1337")
+	var fullAddress = "ws://" + address
+	if address.find(":") == -1:
+		fullAddress += ":1337"
+	print("connecting to ", fullAddress)
+	client.connect_to_url(fullAddress)
 
 func _process(delta):
 	client.poll()
