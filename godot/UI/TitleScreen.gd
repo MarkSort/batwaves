@@ -3,9 +3,9 @@ extends MarginContainer
 var skin = 1
 
 func _ready():
-	
+
 	setSkin()
-	
+
 	var buildType = OS.get_name()
 
 	if buildType == "HTML5":
@@ -71,4 +71,3 @@ func is_clicked(event):
 
 	get_tree().set_input_as_handled()
 	return true
-
