@@ -17,6 +17,7 @@ var state = MOVE
 var velocity = Vector2.ZERO
 var roll_vector = Vector2.DOWN
 var health = 4
+var tookDamageThisTick = false
 
 var clientInputVelocity = Vector2.ZERO
 var clientAttack = false
@@ -49,6 +50,7 @@ func _ready():
 		sprite.texture = load("res://Player/Player%d.png" % [skin])
 
 func _physics_process(delta):
+	tookDamageThisTick = false
 
 	match state:
 		MOVE:
@@ -120,9 +122,10 @@ func attack_animation_finished():
 	state = MOVE
 
 func _on_Hurtbox_area_entered(area):
-	if client || state == ROLL:
+	if client || state == ROLL || tookDamageThisTick:
 		return
 
+	tookDamageThisTick = true
 	hurt()
 
 	health -= area.damage
