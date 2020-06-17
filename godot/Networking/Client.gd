@@ -32,6 +32,14 @@ onready var world = get_parent()
 
 var skin = 1
 
+enum {
+	BLANK,
+	WAVE,
+	GAMEOVER
+}
+
+var titleState = BLANK
+
 func _init():
 	client.connect("data_received", self, "_data_received")
 	client.connect("connection_closed", self, "_connection_closed")
@@ -210,12 +218,18 @@ func doBatUpdate(batUpdateId, updateBuffer):
 		}
 
 	var playerCount = world.players.get_child_count()
-	if batCount == 0 && playerCount > 0:
+	if batCount == 0 && playerCount > 0 && titleState != WAVE:
+		titleState = WAVE
 		world.status.text = "Wave %d" % [wave]
-	elif playerCount == 0:
+		world.gameOver = false
+	elif playerCount == 0 && titleState == BLANK:
+		titleState = GAMEOVER
 		world.status.text = "Game Over\non Wave %d" % [wave]
-	else:
+		world.gameOverTimer.start()
+	elif titleState != BLANK && batCount > 0 && playerCount > 0:
+		titleState = BLANK
 		world.status.text = ""
+		world.gameOverTimer.stop()
 
 	var newBats = batUpdates.duplicate()
 	for bat in world.bats.get_children():
