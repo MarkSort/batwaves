@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://UI/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player2.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Fonts/PressStart2P-vaV7.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://World/GrassBackground.png" type="Texture" id=9]
 [ext_resource path="res://Player/Player7.png" type="Texture" id=10]
+[ext_resource path="res://Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 8 )
@@ -35,123 +36,123 @@ size = 10
 font_data = ExtResource( 8 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 2 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 2 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 2 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 2 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 3 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 3 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 3 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 3 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 6 )
+atlas = ExtResource( 3 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 6 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 6 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 6 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 6 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 7 )
+atlas = ExtResource( 6 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 10 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 10 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=33]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 10 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=34]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 10 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 10 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=36]
-atlas = ExtResource( 3 )
+atlas = ExtResource( 10 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=37]
@@ -179,54 +180,54 @@ atlas = ExtResource( 5 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=43]
-atlas = ExtResource( 10 )
+atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 10 )
+atlas = ExtResource( 7 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=45]
-atlas = ExtResource( 10 )
+atlas = ExtResource( 7 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=46]
-atlas = ExtResource( 10 )
+atlas = ExtResource( 7 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=47]
-atlas = ExtResource( 10 )
+atlas = ExtResource( 7 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=48]
-atlas = ExtResource( 10 )
+atlas = ExtResource( 7 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=49]
 animations = [ {
 "frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
-"name": "Player",
+"name": "Player2",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ],
 "loop": true,
-"name": "Player2",
+"name": "Player",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
 "loop": true,
-"name": "Player5",
+"name": "Player4",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
 "loop": true,
-"name": "Player6",
+"name": "Player5",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ) ],
 "loop": true,
-"name": "Player4",
+"name": "Player7",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ) ],
@@ -236,7 +237,7 @@ animations = [ {
 }, {
 "frames": [ SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ) ],
 "loop": true,
-"name": "Player7",
+"name": "Player6",
 "speed": 10.0
 } ]
 
@@ -245,10 +246,13 @@ size = 7
 font_data = ExtResource( 8 )
 
 [sub_resource type="DynamicFont" id=51]
+font_data = ExtResource( 11 )
+
+[sub_resource type="DynamicFont" id=52]
 size = 10
 font_data = ExtResource( 8 )
 
-[sub_resource type="DynamicFont" id=52]
+[sub_resource type="DynamicFont" id=53]
 size = 10
 font_data = ExtResource( 8 )
 
@@ -273,18 +277,18 @@ region_rect = Rect2( 0, 0, 75, 432 )
 [node name="MainMenu" type="VBoxContainer" parent="."]
 margin_left = 20.0
 margin_top = 5.0
-margin_right = 170.0
-margin_bottom = 171.0
+margin_right = 300.0
+margin_bottom = 173.0
 
 [node name="Title" type="Label" parent="MainMenu"]
-margin_right = 150.0
+margin_right = 280.0
 margin_bottom = 16.0
 custom_fonts/font = SubResource( 1 )
 text = "Bat Waves"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
 margin_top = 20.0
-margin_right = 150.0
+margin_right = 280.0
 margin_bottom = 166.0
 custom_constants/margin_top = 10
 custom_constants/margin_left = 20
@@ -292,11 +296,11 @@ custom_constants/margin_left = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer"]
 margin_left = 20.0
 margin_top = 10.0
-margin_right = 150.0
+margin_right = 280.0
 margin_bottom = 146.0
 
 [node name="SinglePlayer" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
-margin_right = 130.0
+margin_right = 260.0
 margin_bottom = 10.0
 mouse_filter = 0
 mouse_default_cursor_shape = 2
@@ -305,7 +309,7 @@ text = "Single Player"
 
 [node name="HostGame" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
 margin_top = 14.0
-margin_right = 130.0
+margin_right = 260.0
 margin_bottom = 24.0
 mouse_filter = 0
 mouse_default_cursor_shape = 2
@@ -314,7 +318,7 @@ text = "Host Game"
 
 [node name="JoinGame" type="Label" parent="MainMenu/MarginContainer/VBoxContainer"]
 margin_top = 28.0
-margin_right = 130.0
+margin_right = 260.0
 margin_bottom = 38.0
 mouse_filter = 0
 mouse_default_cursor_shape = 2
@@ -323,7 +327,7 @@ text = "Join Game"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu/MarginContainer/VBoxContainer"]
 margin_top = 42.0
-margin_right = 130.0
+margin_right = 260.0
 margin_bottom = 112.0
 mouse_default_cursor_shape = 2
 custom_constants/margin_top = 60
@@ -331,20 +335,20 @@ custom_constants/margin_left = 0
 
 [node name="ChangePlayer" type="Label" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer"]
 margin_top = 60.0
-margin_right = 130.0
+margin_right = 260.0
 margin_bottom = 70.0
 custom_fonts/font = SubResource( 5 )
 text = "Change Player"
 
 [node name="MarginContainer2" type="MarginContainer" parent="MainMenu/MarginContainer/VBoxContainer"]
 margin_top = 116.0
-margin_right = 130.0
+margin_right = 260.0
 margin_bottom = 136.0
 custom_constants/margin_top = 10
 
 [node name="Quit" type="Label" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer2"]
 margin_top = 10.0
-margin_right = 130.0
+margin_right = 260.0
 margin_bottom = 20.0
 mouse_filter = 0
 mouse_default_cursor_shape = 2
@@ -361,7 +365,7 @@ visible = false
 margin_left = 20.0
 margin_top = 5.0
 margin_right = 300.0
-margin_bottom = 171.0
+margin_bottom = 173.0
 
 [node name="ServerAddressLabel" type="Label" parent="JoinGameMenu"]
 margin_right = 280.0
@@ -372,23 +376,24 @@ text = "Server Address"
 [node name="ServerAddress" type="LineEdit" parent="JoinGameMenu"]
 margin_top = 11.0
 margin_right = 280.0
-margin_bottom = 35.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 280, 0 )
+custom_fonts/font = SubResource( 51 )
 text = "batwaves.marksort.com"
 
 [node name="JoinGame" type="Label" parent="JoinGameMenu"]
-margin_top = 39.0
+margin_top = 44.0
 margin_right = 280.0
-margin_bottom = 49.0
+margin_bottom = 54.0
 mouse_filter = 0
 mouse_default_cursor_shape = 2
-custom_fonts/font = SubResource( 51 )
+custom_fonts/font = SubResource( 52 )
 text = "Join Game"
 
 [node name="MarginContainer" type="MarginContainer" parent="JoinGameMenu"]
-margin_top = 53.0
+margin_top = 58.0
 margin_right = 280.0
-margin_bottom = 163.0
+margin_bottom = 168.0
 custom_constants/margin_top = 100
 
 [node name="Back" type="Label" parent="JoinGameMenu/MarginContainer"]
@@ -397,7 +402,7 @@ margin_right = 280.0
 margin_bottom = 110.0
 mouse_filter = 0
 mouse_default_cursor_shape = 2
-custom_fonts/font = SubResource( 52 )
+custom_fonts/font = SubResource( 53 )
 text = "< Back"
 [connection signal="gui_input" from="MainMenu/MarginContainer/VBoxContainer/SinglePlayer" to="." method="_on_SinglePlayer_gui_input"]
 [connection signal="gui_input" from="MainMenu/MarginContainer/VBoxContainer/HostGame" to="." method="_on_HostGame_gui_input"]
