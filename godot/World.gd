@@ -13,12 +13,14 @@ onready var status = $CanvasLayer/Status
 
 onready var waveTimer = $WaveTimer
 onready var spawnTimer = $SpawnTimer
+onready var gameOverTimer = $GameOverTimer
 
 var server = true
 var firstTick = true
 var playersMap = {}
 var playerSkins = {}
 var skin = 0
+var gameOver = true
 
 var nextSpawner
 var wave = 1
@@ -33,7 +35,8 @@ func _process(_delta):
 		firstTick = false
 
 func restartGame():
-	if server && players.get_child_count() == 0 && spawnTimer.is_stopped() && !firstTick:
+	if server && gameOver && !firstTick:
+		gameOver = false
 		wave = 1
 		nextSpawner = 0
 
@@ -131,7 +134,8 @@ func removePlayer(player):
 	playersMap[player.id] = null
 
 	if players.get_child_count() == 0:
-		status.text = "Game Over\non Wave %d\n\nAttack to Restart" % [wave]
+		gameOverTimer.start()
+		status.text = "Game Over\non Wave %d" % [wave]
 		for bat in bats.get_children():
 			bat.player = null
 		return
@@ -186,3 +190,8 @@ func addClientBat(id, newBat):
 func removeClientBat(bat):
 	bats.remove_child(bat)
 	bat.free()
+
+
+func _on_GameOverTimer_timeout():
+	gameOver = true
+	status.text += "\n\nAttack to Restart"

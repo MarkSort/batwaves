@@ -562,7 +562,12 @@ one_shot = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="GameOverTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 [connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[connection signal="timeout" from="GameOverTimer" to="." method="_on_GameOverTimer_timeout"]
 
 [editable path="Camera2D"]
