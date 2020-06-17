@@ -77,6 +77,8 @@ func _process(delta):
 
 		updates.append(updateBuffer.get_data_array())
 
+	var restartGame = false
+
 	for i in webRtcPeers:
 		webRtcPeers[i].poll()
 		var dataChannel: WebRTCDataChannel = webRtcPeers[i].dataChannel
@@ -97,12 +99,7 @@ func _process(delta):
 				dataChannel.put_packet(update)
 
 		if !updates.size() && dataChannel.get_available_packet_count():
-			# read packet even if player isn't currently valid
 			var inputUpdate: PoolByteArray = dataChannel.get_packet()
-
-			var player = get_parent().playersMap[i]
-			if !is_instance_valid(player):
-				continue
 
 			var inputBuffer = StreamPeerBuffer.new()
 			inputBuffer.set_data_array(inputUpdate)
@@ -129,13 +126,25 @@ func _process(delta):
 
 			var actions = inputBuffer.get_u8()
 
+			var clientAttack = (actions & 1) > 0
+			if clientAttack:
+				restartGame = true
+
+			var player = get_parent().playersMap[i]
+			if !is_instance_valid(player):
+				continue
+
 			player.clientInputVelocity = clientInputVelocity
-			player.clientAttack = (actions & 1) > 0
+			player.clientAttack = clientAttack
 			player.clientRoll = (actions & 2) > 0
+
 
 	for i in disconnectedPeers:
 		get_parent().disconnectPlayer(i)
 		webRtcPeers.erase(i)
+
+	if restartGame:
+		get_parent().restartGame()
 
 # WebSocket
 func _client_connected(id, protocol):
