@@ -237,7 +237,7 @@ animations = [ {
 "frames": [ SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ) ],
 "loop": true,
 "name": "Player7",
-"speed": 5.0
+"speed": 10.0
 } ]
 
 [sub_resource type="DynamicFont" id=50]
