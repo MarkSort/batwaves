@@ -1,6 +1,7 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://Fonts/PressStart2P-vaV7.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Fonts/Roboto-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://World/GrassBackground.png" type="Texture" id=3]
 [ext_resource path="res://World/DirtTileset.png" type="Texture" id=4]
 [ext_resource path="res://World/CliffTileset.png" type="Texture" id=5]
@@ -485,6 +486,21 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 [sub_resource type="DynamicFont" id=50]
 font_data = ExtResource( 1 )
 
+[sub_resource type="DynamicFont" id=54]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=51]
+size = 14
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=52]
+size = 14
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=53]
+size = 14
+font_data = ExtResource( 2 )
+
 [node name="World" type="Node2D"]
 script = ExtResource( 6 )
 
@@ -542,6 +558,45 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Menu" type="VBoxContainer" parent="CanvasLayer"]
+visible = false
+margin_left = 110.708
+margin_top = 25.6839
+margin_right = 212.708
+margin_bottom = 135.684
+custom_constants/separation = 9
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Menu"]
+margin_right = 102.0
+margin_bottom = 19.0
+custom_fonts/font = SubResource( 54 )
+text = "Menu"
+align = 1
+
+[node name="Back To Game" type="Button" parent="CanvasLayer/Menu"]
+margin_top = 28.0
+margin_right = 102.0
+margin_bottom = 51.0
+custom_fonts/font = SubResource( 51 )
+text = "Back To Game"
+
+[node name="Main Menu" type="Button" parent="CanvasLayer/Menu"]
+margin_top = 60.0
+margin_right = 102.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 52 )
+text = "Main Menu"
+
+[node name="Quit" type="Button" parent="CanvasLayer/Menu"]
+margin_top = 92.0
+margin_right = 102.0
+margin_bottom = 115.0
+custom_fonts/font = SubResource( 53 )
+text = "Quit"
+
 [node name="Spawners" type="Node" parent="."]
 
 [node name="Position2D" type="Position2D" parent="Spawners"]
@@ -566,6 +621,9 @@ one_shot = true
 [node name="GameOverTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+[connection signal="pressed" from="CanvasLayer/Menu/Back To Game" to="." method="_on_Back_To_Game_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/Main Menu" to="." method="_on_Main_Menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_GameOverTimer_timeout"]

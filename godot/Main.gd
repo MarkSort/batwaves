@@ -57,5 +57,14 @@ func addWorldNode():
 	currentNode = World.instance()
 	add_child(currentNode)
 
+func addTitleScreenNode():
+	if currentNode:
+		previousNode = currentNode
+		remove_child(previousNode)
+		call_deferred("freePreviousNode")
+
+	currentNode = TitleScreen.instance()
+	add_child(currentNode)
+	
 func freePreviousNode():
 	previousNode.free()
