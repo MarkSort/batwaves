@@ -203,7 +203,7 @@ func doBatUpdate(batUpdateId, updateBuffer):
 
 	var wave = updateBuffer.get_u8()
 
-	var batCount = (updateBuffer.get_size() - 4 - 1 - 1) / 9
+	var batCount = (updateBuffer.get_size() - 4 - 1 - 1) / 7
 	var i = 0
 	var batUpdates = {}
 	while i < batCount:
@@ -214,7 +214,10 @@ func doBatUpdate(batUpdateId, updateBuffer):
 				updateBuffer.get_u16() / (65536 / 468) - 58,
 				updateBuffer.get_u16() / (65536 / 280) - 60
 			),
-			"player": updateBuffer.get_u32()
+			"velocity": Vector2(
+				updateBuffer.get_8(),
+				updateBuffer.get_8()
+			)
 		}
 
 	var playerCount = world.players.get_child_count()
@@ -235,12 +238,8 @@ func doBatUpdate(batUpdateId, updateBuffer):
 	for bat in world.bats.get_children():
 		if batUpdates.has(bat.id):
 			newBats.erase(bat.id)
-			bat.position.x = batUpdates[bat.id].position.x
-			bat.position.y = batUpdates[bat.id].position.y
-			if world.playersMap.has(batUpdates[bat.id].player):
-				bat.player = world.playersMap[batUpdates[bat.id].player]
-			else:
-				bat.player = null
+			bat.position = batUpdates[bat.id].position
+			bat.velocity = batUpdates[bat.id].velocity
 		else:
 			world.removeClientBat(bat)
 

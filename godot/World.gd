@@ -181,9 +181,7 @@ func addClientBat(id, newBat):
 	var bat = Bat.instance()
 	bat.id = id
 	bat.position = newBat.position
-
-	if playersMap.has(newBat.player):
-		bat.player = playersMap[newBat.player]
+	bat.velocity = newBat.velocity
 
 	bats.add_child(bat)
 
