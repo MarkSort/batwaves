@@ -241,6 +241,8 @@ func doBatUpdate(batUpdateId, updateBuffer):
 			bat.position = batUpdates[bat.id].position
 			bat.velocity = batUpdates[bat.id].velocity
 		else:
+			if !(wave == 1 && batCount == 0):
+				bat._on_Stats_no_health()
 			world.removeClientBat(bat)
 
 	for id in newBats:

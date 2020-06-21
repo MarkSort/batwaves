@@ -78,7 +78,8 @@ func spawnBat():
 		newBat.global_position = spawners[nextSpawner].global_position
 		newBat.player = players.get_child(randi() % players.get_child_count())
 		newBat.id = batsSpawned
-		newBat.connect("killed", self, "_bat_killed")
+		if server:
+			newBat.connect("killed", self, "_bat_killed")
 		bats.add_child(newBat)
 
 		nextSpawner += 1
