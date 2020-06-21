@@ -42,15 +42,10 @@ func _ready():
 	swordHitbox.knockback_vector = roll_vector
 	sprite.material.set_shader_param("active", false)
 
-	if client:
-		call_deferred("setClientMode")
+	hurtbox.client = client
 
 	if skin > 1:
 		sprite.texture = load("res://Player/Player%d.png" % [skin])
-
-func setClientMode():
-	swordHitbox.setClientMode()
-	hurtbox.setClientMode()
 
 func _physics_process(delta):
 	tookDamageThisTick = false
@@ -120,6 +115,10 @@ func move():
 func roll_animation_finished():
 	velocity = velocity * 0.8
 	state = MOVE
+
+func attack_start_damage():
+	if !client:
+		swordHitbox.collisionShape.disabled = false
 
 func attack_animation_finished():
 	state = MOVE
