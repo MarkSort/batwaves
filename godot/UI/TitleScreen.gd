@@ -10,7 +10,7 @@ func _ready():
 
 	if buildType == "HTML5":
 		$MainMenu/MarginContainer/VBoxContainer/HostGame.visible = false
-		$MainMenu/MarginContainer/VBoxContainer/Quit.visible = false
+		$MainMenu/MarginContainer/VBoxContainer/MarginContainer2/Quit.visible = false
 
 func _on_SinglePlayer_gui_input(event):
 	if (!is_clicked(event)): return
