@@ -43,11 +43,14 @@ func _ready():
 	sprite.material.set_shader_param("active", false)
 
 	if client:
-		swordHitbox.setClientMode()
-		hurtbox.setClientMode()
+		call_deferred("setClientMode")
 
 	if skin > 1:
 		sprite.texture = load("res://Player/Player%d.png" % [skin])
+
+func setClientMode():
+	swordHitbox.setClientMode()
+	hurtbox.setClientMode()
 
 func _physics_process(delta):
 	tookDamageThisTick = false
