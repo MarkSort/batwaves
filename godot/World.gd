@@ -10,6 +10,7 @@ onready var players = $YSort/Players
 onready var spawners = $Spawners.get_children()
 onready var camera = $Camera2D
 onready var status = $CanvasLayer/Status
+onready var menu = $CanvasLayer/Menu
 
 onready var waveTimer = $WaveTimer
 onready var spawnTimer = $SpawnTimer
@@ -34,7 +35,7 @@ func _process(_delta):
 	if firstTick:
 		firstTick = false
 	if Input.is_action_just_pressed("toggle_menu"):
-		$CanvasLayer/Menu.visible = !$CanvasLayer/Menu.visible
+		menu.visible = !menu.visible
 func restartGame():
 	if server && gameOver && !firstTick:
 		gameOver = false
@@ -199,7 +200,7 @@ func _on_GameOverTimer_timeout():
 
 # Stuff for the menu
 func _on_Back_To_Game_pressed():
-	$CanvasLayer/Menu.visible = false
+	menu.visible = false
 
 
 func _on_Quit_pressed():

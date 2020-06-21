@@ -95,24 +95,26 @@ func _process(delta):
 		inputCount += 1
 
 		var inputDirection = 0
-		if Input.is_action_pressed("ui_left") && Input.is_action_pressed("ui_right"):
-			pass
-		elif Input.is_action_pressed("ui_left"):
-			inputDirection += 1
-		elif Input.is_action_pressed("ui_right"):
-			inputDirection += 2
-		if Input.is_action_pressed("ui_up") && Input.is_action_pressed("ui_down"):
-			pass
-		elif Input.is_action_pressed("ui_up"):
-			inputDirection += 3
-		elif Input.is_action_pressed("ui_down"):
-			inputDirection += 6
-
 		var actions = 0
-		if Input.is_action_pressed("attack"):
-			actions |= 1
-		if Input.is_action_pressed("roll"):
-			actions |= 2
+
+		if !world.menu.visible:
+			if Input.is_action_pressed("ui_left") && Input.is_action_pressed("ui_right"):
+				pass
+			elif Input.is_action_pressed("ui_left"):
+				inputDirection += 1
+			elif Input.is_action_pressed("ui_right"):
+				inputDirection += 2
+			if Input.is_action_pressed("ui_up") && Input.is_action_pressed("ui_down"):
+				pass
+			elif Input.is_action_pressed("ui_up"):
+				inputDirection += 3
+			elif Input.is_action_pressed("ui_down"):
+				inputDirection += 6
+
+			if Input.is_action_pressed("attack"):
+				actions |= 1
+			if Input.is_action_pressed("roll"):
+				actions |= 2
 
 		var inputBuffer = StreamPeerBuffer.new()
 		inputBuffer.resize(5)

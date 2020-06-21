@@ -33,6 +33,7 @@ onready var swordHitbox = $HitboxPivot/SwordHitbox
 onready var hurtbox = $Hurtbox
 onready var blinkAnimationPlayer = $BlinkAnimationPlayer
 onready var sprite = $Sprite
+onready var world = get_parent().get_parent().get_parent()
 
 var id
 var skin = 1
@@ -65,8 +66,9 @@ func move_state(delta):
 	if client:
 		input_vector = velocity
 	elif serverPlayer:
-		input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-		input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		if !world.menu.visible:
+			input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+			input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	else:
 		input_vector = clientInputVelocity
 	input_vector = input_vector.normalized()
@@ -84,10 +86,11 @@ func move_state(delta):
 	move()
 
 	if serverPlayer:
-		if Input.is_action_just_pressed("roll"):
-			state = ROLL
-		if Input.is_action_just_pressed("attack"):
-			state = ATTACK
+		if !world.menu.visible:
+			if Input.is_action_just_pressed("roll"):
+				state = ROLL
+			if Input.is_action_just_pressed("attack"):
+				state = ATTACK
 	else:
 		if clientAttack:
 			state = ATTACK
@@ -136,7 +139,7 @@ func _on_Hurtbox_area_entered(area):
 		PlayerStats.health = health
 
 	if health <= 0:
-		get_parent().get_parent().get_parent().removePlayer(self)
+		world.removePlayer(self)
 		return queue_free()
 
 	startInvincibility()
