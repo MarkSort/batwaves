@@ -8,6 +8,7 @@ export var FRICTION = 150
 
 var velocity = Vector2.ZERO
 var knockback = Vector2.ZERO
+var startHealth = 2
 
 onready var sprite = $AnimatedSprite
 onready var stats = $Stats
@@ -19,6 +20,9 @@ var player
 var id
 
 signal killed
+
+func _ready():
+	stats.health = startHealth
 
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, FRICTION * delta)
@@ -41,6 +45,9 @@ func accelerate_towards_point(point, delta):
 func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
 	knockback = area.knockback_vector * 150
+	startHurt()
+
+func startHurt():
 	hurtbox.create_hit_effect()
 	hurtbox.start_invincibility(0.4)
 

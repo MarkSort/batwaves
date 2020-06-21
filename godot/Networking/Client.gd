@@ -203,7 +203,7 @@ func doBatUpdate(batUpdateId, updateBuffer):
 
 	var wave = updateBuffer.get_u8()
 
-	var batCount = (updateBuffer.get_size() - 4 - 1 - 1) / 7
+	var batCount = (updateBuffer.get_size() - 4 - 1 - 1) / 8
 	var i = 0
 	var batUpdates = {}
 	while i < batCount:
@@ -217,7 +217,8 @@ func doBatUpdate(batUpdateId, updateBuffer):
 			"velocity": Vector2(
 				updateBuffer.get_8(),
 				updateBuffer.get_8()
-			)
+			),
+			"health": updateBuffer.get_u8()
 		}
 
 	var playerCount = world.players.get_child_count()
@@ -240,6 +241,9 @@ func doBatUpdate(batUpdateId, updateBuffer):
 			newBats.erase(bat.id)
 			bat.position = batUpdates[bat.id].position
 			bat.velocity = batUpdates[bat.id].velocity
+			if bat.stats.health > batUpdates[bat.id].health:
+				bat.startHurt()
+			bat.stats.health = batUpdates[bat.id].health
 		else:
 			if !(wave == 1 && batCount == 0):
 				bat._on_Stats_no_health()

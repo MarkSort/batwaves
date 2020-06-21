@@ -183,6 +183,7 @@ func addClientBat(id, newBat):
 	bat.id = id
 	bat.position = newBat.position
 	bat.velocity = newBat.velocity
+	bat.startHealth = newBat.health
 
 	bats.add_child(bat)
 
