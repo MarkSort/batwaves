@@ -33,7 +33,8 @@ func _process(_delta):
 		restartGame()
 	if firstTick:
 		firstTick = false
-
+	if Input.is_action_just_pressed("toggle_menu"):
+		$CanvasLayer/Menu.visible = !$CanvasLayer/Menu.visible
 func restartGame():
 	if server && gameOver && !firstTick:
 		gameOver = false
@@ -195,3 +196,15 @@ func removeClientBat(bat):
 func _on_GameOverTimer_timeout():
 	gameOver = true
 	status.text += "\n\nAttack to Restart"
+
+# Stuff for the menu
+func _on_Back_To_Game_pressed():
+	$CanvasLayer/Menu.visible = false
+
+
+func _on_Quit_pressed():
+	get_tree().quit()
+
+
+func _on_Main_Menu_pressed():
+	get_tree().current_scene.addTitleScreenNode()
