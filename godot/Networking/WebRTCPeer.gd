@@ -5,6 +5,8 @@ var dataChannel: WebRTCDataChannel
 var addedToWorld = false
 var lastInputId = 0
 
+var sinceLastInput = 0
+
 signal offer_created
 signal ice_candidate_created
 

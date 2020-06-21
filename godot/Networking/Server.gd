@@ -99,6 +99,7 @@ func _process(delta):
 				dataChannel.put_packet(update)
 
 		if !updates.size() && dataChannel.get_available_packet_count():
+			webRtcPeers[i].sinceLastInput = 0
 			var inputUpdate: PoolByteArray = dataChannel.get_packet()
 
 			var inputBuffer = StreamPeerBuffer.new()
@@ -137,6 +138,10 @@ func _process(delta):
 			player.clientInputVelocity = clientInputVelocity
 			player.clientAttack = clientAttack
 			player.clientRoll = (actions & 2) > 0
+		elif !updates.size():
+			webRtcPeers[i].sinceLastInput += delta
+			if webRtcPeers[i].sinceLastInput > 2:
+				disconnectedPeers.append(i)
 
 
 	for i in disconnectedPeers:
