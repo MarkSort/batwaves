@@ -11,6 +11,7 @@ func _ready():
 	if buildType == "HTML5":
 		$MainMenu/MarginContainer/VBoxContainer/HostGame.visible = false
 		$MainMenu/MarginContainer/VBoxContainer/MarginContainer2/Quit.visible = false
+		$MainMenu/AnimatedSprite.position.y -= 15
 
 func _on_SinglePlayer_gui_input(event):
 	if (!is_clicked(event)): return
