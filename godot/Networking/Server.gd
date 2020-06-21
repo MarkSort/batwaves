@@ -31,7 +31,7 @@ func _process(delta):
 
 		var playerCount = worldPlayers.get_child_count()
 		var updateBuffer = StreamPeerBuffer.new()
-		updateBuffer.resize(playerCount * 23 + 4 + 1)
+		updateBuffer.resize(playerCount * 19 + 4 + 1)
 		updateBuffer.put_u8(0) # update type Player
 		updateBuffer.put_u32(updateCount)
 
@@ -47,10 +47,13 @@ func _process(delta):
 			elif player.roll_vector.y > 0:
 				facing += 6
 
+			var x = round((player.position.x + 58) * (65536 / 468))
+			var y = round((player.position.y + 60) * (65536 / 280))
+
 			updateBuffer.put_u32(player.id)
 			updateBuffer.put_u8(player.state)
-			updateBuffer.put_float(player.position.x)
-			updateBuffer.put_float(player.position.y)
+			updateBuffer.put_u16(x)
+			updateBuffer.put_u16(y)
 			updateBuffer.put_float(player.velocity.x)
 			updateBuffer.put_float(player.velocity.y)
 			updateBuffer.put_u8(player.health)
