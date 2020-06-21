@@ -127,7 +127,7 @@ func doPlayerUpdate(playerUpdateId, updateBuffer):
 
 	var playerUpdates = {}
 	var newPlayerIds = []
-	var playerCount = (updateBuffer.get_size() - 4 - 1) / 19
+	var playerCount = (updateBuffer.get_size() - 4 - 1) / 13
 	var i = 0
 	while i < playerCount:
 		i += 1
@@ -141,8 +141,8 @@ func doPlayerUpdate(playerUpdateId, updateBuffer):
 				updateBuffer.get_u16() / (65536 / 280) - 60
 			),
 			"velocity": Vector2(
-				updateBuffer.get_float(),
-				updateBuffer.get_float()
+				updateBuffer.get_8(),
+				updateBuffer.get_8()
 			),
 			"health": updateBuffer.get_u8(),
 			"facing": updateBuffer.get_u8(),
