@@ -203,7 +203,7 @@ func doBatUpdate(batUpdateId, updateBuffer):
 
 	var wave = updateBuffer.get_u8()
 
-	var batCount = (updateBuffer.get_size() - 4 - 1 - 1) / 13
+	var batCount = (updateBuffer.get_size() - 4 - 1 - 1) / 9
 	var i = 0
 	var batUpdates = {}
 	while i < batCount:
@@ -211,8 +211,8 @@ func doBatUpdate(batUpdateId, updateBuffer):
 		var id = updateBuffer.get_u8()
 		batUpdates[id] = {
 			"position": Vector2(
-				updateBuffer.get_float(),
-				updateBuffer.get_float()
+				updateBuffer.get_u16() / (65536 / 468) - 58,
+				updateBuffer.get_u16() / (65536 / 280) - 60
 			),
 			"player": updateBuffer.get_u32()
 		}
