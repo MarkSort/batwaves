@@ -65,6 +65,6 @@ func addTitleScreenNode():
 
 	currentNode = TitleScreen.instance()
 	add_child(currentNode)
-	
+
 func freePreviousNode():
 	previousNode.free()
