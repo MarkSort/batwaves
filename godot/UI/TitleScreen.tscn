@@ -379,7 +379,7 @@ margin_right = 280.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 280, 0 )
 custom_fonts/font = SubResource( 51 )
-text = "batwaves.marksort.com"
+text = "bw.marksort.com"
 
 [node name="JoinGame" type="Label" parent="JoinGameMenu"]
 margin_top = 44.0
