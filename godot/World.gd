@@ -29,6 +29,13 @@ var batsSpawned
 var batsKilled
 var playerId
 
+
+
+func _ready():
+	var buildType = OS.get_name()
+	if buildType == "HTML5":
+		$CanvasLayer/Menu/Quit.visible = false
+
 func _process(_delta):
 	if Input.is_action_just_pressed("attack"):
 		restartGame()
