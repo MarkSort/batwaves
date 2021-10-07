@@ -38,7 +38,7 @@ func _on_ChangePlayer_gui_input(event):
 	if (!is_clicked(event)): return
 
 	skin += 1
-	if skin > 8:
+	if skin > 9:
 		skin = 1
 
 	setSkin()
